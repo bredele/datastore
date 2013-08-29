@@ -16,21 +16,52 @@ function Store(data) {
 }
 
 
-Store.prototype.set = function(first_argument) {
+/**
+ * Set store attribute.
+ * @param {String} name
+ * @param {Everything} value
+ * @api public
+ */
+
+Store.prototype.set = function(name, value, plugin) { //add object options
   // body...
 };
 
 
-Store.prototype.get = function(first_argument) {
+/**
+ * Get store attribute.
+ * @param {String} name
+ * @return {Everything}
+ * @api public
+ */
+
+Store.prototype.get = function(name) {
   // body...
 };
 
 
-Store.prototype.format = function(first_argument) {
-  // body...
+/**
+ * Set format middleware.
+ * Call formatter everytime a getter is called.
+ * @param {String} name
+ * @param {Function} callback
+ * @param {Object} scope
+ * @return this
+ * @api public
+ */
+
+Store.prototype.format = function(name, callback, scope) {
+  return this;
 };
 
 
-Store.prototype.compute = function(first_argument) {
+/**
+ * Compute store attributes
+ * @param  {[type]} first_argument [description]
+ * @return {[type]}                [description]
+ * @api public
+ */
+
+Store.prototype.compute = function() {
   // body...
 };
