@@ -1,0 +1,14 @@
+{
+  "name": "store",
+  "repo": "bredele/store",
+  "description": "store component (inspired by olives.js)",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
