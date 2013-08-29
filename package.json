@@ -1,0 +1,33 @@
+{
+  "name": "store",
+  "version": "0.0.0",
+  "description": "store component (inspired by olives.js)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bredele/store.git"
+  },
+  "keywords": [
+    "model",
+    "store",
+    "object",
+    "array",
+    "mvc"
+  ],
+  "author": "Olivier Wietrich - PetroFeed",
+  "license": "BSD",
+  "readmeFilename": "Readme.md",
+  "gitHead": "6f7663855a610eec6b2ea1dae14431f229fa902d",
+  "bugs": {
+    "url": "https://github.com/bredele/store/issues"
+  }
+}
