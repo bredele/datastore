@@ -10,7 +10,32 @@ describe('store initialization', function(){
 });
 
 describe('object like', function(){
+  var store = null;
+
+  beforeEach(function(){
+    store = new Store();
+  });
+
   it('should set the data', function(){
+    store.set('name', 'olivier');
+    assert('olivier' === store.get('name'));
+  });
+
+  it('should override an existing store attribute', function(){
+    store.set('name', 'olivier');
+    store.set('name', 'bredele');
+    assert('bredele' === store.get('name'));
+  });
+
+  it("should return undefined if attribute doesn't exist", function(){
+    assert(undefined === store.get('name'));
+  });
+
+  it('should initialize a store with an object', function(){
+    var other = new Store({
+      name : 'olivier'
+    });
+    assert('olivier' === store.get('name'));
   });
 });
 
