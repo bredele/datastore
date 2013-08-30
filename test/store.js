@@ -163,6 +163,21 @@ describe('computed attributes', function(){
   });
 });
 
+describe('reset', function(){
+  it('should reset store', function(){
+    var store = new Store({
+      name: 'olivier'
+    });
+
+    store.reset({
+      github:'bredele'
+    });
+
+    assert(undefined === store.get('name'));
+    assert('bredele' === store.get('github'));
+  });
+});
+
 describe('utils', function(){
   it('to json', function(){
     var store = new Store({

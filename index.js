@@ -119,6 +119,17 @@ Store.prototype.compute = function(name, callback) {
 
 
 /**
+ * Reset store
+ * @param  {Object} data 
+ * @api public
+ */
+
+Store.prototype.reset = function(data) {
+  this.data = data;
+};
+
+
+/**
  * Stringify model
  * @return {String} json
  * @api public
