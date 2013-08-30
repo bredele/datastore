@@ -9,7 +9,7 @@ var assert = require('assert');
 //   });
 // });
 
-describe('object like', function(){
+describe('General', function(){
 
   it('should initialize a store with an object', function(){
     var other = new Store({
@@ -177,7 +177,8 @@ describe('reset', function(){
   var store = null;
   beforeEach(function(){
     store = new Store({
-      name: 'olivier'
+      name: 'olivier',
+      twitter: 'bredeleca'
     });
   });
 
@@ -186,6 +187,7 @@ describe('reset', function(){
       github:'bredele'
     });
     assert(undefined === store.get('name'));
+    assert(undefined === store.get('twitter'));
     assert('bredele' === store.get('github'));
   });
 
