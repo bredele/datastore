@@ -109,7 +109,7 @@ Store.prototype.compute = function(name, callback) {
   var str = callback.toString();
   var attrs = str.match(/this.[a-zA-Z0-9]*/g);
 
-  this.set(name, callback.call(this.data)); //TODO: refactor
+  this.set(name, callback.call(this.data)); //TODO: refactor (may be use replace)
   for(var l = attrs.length; l--;){
     this.on('change ' + attrs[l].slice(5), function(){
       this.set(name, callback.call(this.data));
