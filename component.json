@@ -6,7 +6,8 @@
   "keywords": [],
   "dependencies": {
     "component/emitter": "*",
-    "component/assert": "*"
+    "component/assert": "*",
+    "component/each": "*"
   },
   "development": {
     "component/assert": "*"

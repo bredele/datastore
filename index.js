@@ -1,4 +1,5 @@
-var Emitter = require('emitter'); //TOOD:replace by our own
+var Emitter = require('emitter'); //TODO:replace by our own with scope
+var each = require('each');//TODO:replace by our own with scope
 
 /**
  * Expose 'Store'
@@ -29,9 +30,11 @@ Emitter(Store.prototype);
 
 Store.prototype.set = function(name, value, plugin) { //add object options
   var prev = this.data[name];
-  this.data[name] = value;
-  this.emit('change', name, value, prev);
-  this.emit('change ' + name, value, prev);
+  if(prev !== value) {
+    this.data[name] = value;
+    this.emit('change', name, value, prev);
+    this.emit('change ' + name, value, prev);
+  }
 };
 
 
@@ -75,6 +78,7 @@ Store.prototype.del = function(name) {
   if(this.has(name)){
     delete this.data[name]; //NOTE: do we need to return something?
     this.emit('deleted', name);
+    this.emit('deleted ' + name);
   }
 };
 
@@ -125,7 +129,17 @@ Store.prototype.compute = function(name, callback) {
  */
 
 Store.prototype.reset = function(data) {
-  this.data = data;
+  var _this = this;
+  //remove undefined attributes
+  each(this.data, function(key, val){
+    if(typeof data[key] === 'undefined'){ //data[key] can be 0
+      _this.del(key);
+    }
+  });
+  //set new attributes
+  each(data, function(key, val){
+    _this.set(key, val);
+  });
 };
 
 

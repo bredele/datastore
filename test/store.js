@@ -55,6 +55,16 @@ describe('object like', function(){
         assert(obj.name === 'olivier');
       });
 
+      it('should only emit event whwn attribute has changed', function(){
+        var hasChanged = false;
+        store.set('name', 'olivier');
+        store.on('change', function(name, value){
+          hasChanged = true;
+        });
+        store.set('name', 'olivier');
+        assert(false === hasChanged);
+      });
+
       it('should emit a change event with the current and previous value of an attribute', function(){
         var obj = {};
         store.set('name', 'olivier');
@@ -164,18 +174,33 @@ describe('computed attributes', function(){
 });
 
 describe('reset', function(){
-  it('should reset store', function(){
-    var store = new Store({
+  var store = null;
+  beforeEach(function(){
+    store = new Store({
       name: 'olivier'
     });
+  });
 
+  it('should reset store', function(){
+    store.reset({
+      github:'bredele'
+    });
+    assert(undefined === store.get('name'));
+    assert('bredele' === store.get('github'));
+  });
+
+  it('should notify on change', function(){
+    var isDeleted = false;
+    store.on('deleted name', function(){
+      isDeleted = true;
+    }); //TODO: may be spy 
     store.reset({
       github:'bredele'
     });
 
-    assert(undefined === store.get('name'));
-    assert('bredele' === store.get('github'));
+    assert(true === isDeleted);
   });
+
 });
 
 describe('utils', function(){
