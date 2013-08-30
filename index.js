@@ -14,6 +14,7 @@ module.exports = Store;
 
 function Store(data) {
   this.data = data || {};
+  this.formatters = {};
 }
 
 
@@ -30,6 +31,7 @@ Store.prototype.set = function(name, value, plugin) { //add object options
   var prev = this.data[name];
   this.data[name] = value;
   this.emit('change', name, value, prev);
+  this.emit('change ' + name, value, prev);
 };
 
 
@@ -41,7 +43,12 @@ Store.prototype.set = function(name, value, plugin) { //add object options
  */
 
 Store.prototype.get = function(name) {
-  return this.data[name];
+  var formatter = this.formatters[name];
+  var value = this.data[name];
+  if(formatter) {
+    value = formatter[0].call(formatter[1], value);
+  }
+  return value;
 };
 
 /**
@@ -75,6 +82,7 @@ Store.prototype.del = function(name) {
 /**
  * Set format middleware.
  * Call formatter everytime a getter is called.
+ * A formatter should always return a value.
  * @param {String} name
  * @param {Function} callback
  * @param {Object} scope
@@ -83,17 +91,28 @@ Store.prototype.del = function(name) {
  */
 
 Store.prototype.format = function(name, callback, scope) {
+  this.formatters[name] = [callback,scope];
   return this;
 };
 
 
 /**
  * Compute store attributes
- * @param  {[type]} first_argument [description]
- * @return {[type]}                [description]
+ * @param  {[type]} first_argument 
+ * @return {[type]}                
  * @api public
  */
 
-Store.prototype.compute = function() {
-  // body...
+Store.prototype.compute = function(name, callback) {
+  //NOTE: I want something clean instaead passing the computed 
+  //attribute in the function
+  var str = callback.toString();
+  var attrs = str.match(/this.[a-zA-Z0-9]*/g);
+
+  this.set(name, callback.call(this.data)); //TODO: refactor
+  for(var l = attrs.length; l--;){
+    this.on('change ' + attrs[l].slice(5), function(){
+      this.set(name, callback.call(this.data));
+    });
+  }
 };

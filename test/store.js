@@ -120,6 +120,49 @@ describe('object like', function(){
 
 });
 
+describe('formatter', function(){
+  //NOTE: could we have formatter as plugin in the set function
+  it('should return the formatted data', function(){
+    var store = new Store();
+    store.format('name', function(value){
+      return value.toUpperCase();
+    });
+    store.set('name', 'olivier');
+    assert('OLIVIER' === store.get('name'));
+  });
+});
+
+describe('computed attributes', function(){
+  var store = null;
+  beforeEach(function(){
+    store = new Store();
+    store.set('firstname', 'olivier');
+    store.set('lastname', 'wietrich');
+  });
+  it('should compute multiple attributes', function(){
+    store.compute('name', function(){
+      return this.firstname + ' ' + this.lastname;
+    });
+    assert('olivier wietrich' === store.get('name'));
+  });
+
+  it('should listen change on a computed attribute', function(){
+    var obj = {};
+    store.compute('name', function(){
+      return this.firstname + ' ' + this.lastname;
+    });
+
+    store.on('change name', function(value){
+      obj.hasChanged = true;
+      obj.value = value;
+    });
+
+    store.set('firstname', 'nicolas');
+
+    assert('nicolas wietrich' === store.get('name'));
+  });
+});
+
 // describe('array like', function(){
 //   it('should set the data', function(){
 //   });
