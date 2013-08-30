@@ -1,4 +1,4 @@
-var Emitter = require('emitter'); //replace by our own
+var Emitter = require('emitter'); //TOOD:replace by our own
 
 /**
  * Expose 'Store'
@@ -115,4 +115,15 @@ Store.prototype.compute = function(name, callback) {
       this.set(name, callback.call(this.data));
     });
   }
+};
+
+
+/**
+ * Stringify model
+ * @return {String} json
+ * @api public
+ */
+
+Store.prototype.toJSON = function() {
+  return JSON.stringify(this.data);
 };

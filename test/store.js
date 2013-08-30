@@ -163,6 +163,18 @@ describe('computed attributes', function(){
   });
 });
 
+describe('utils', function(){
+  it('to json', function(){
+    var store = new Store({
+      name : 'olivier',
+      github: 'bredele'
+    });
+    store.set('twitter', 'bredeleca');
+    var json = store.toJSON();
+    assert( '{"name":"olivier","github":"bredele","twitter":"bredeleca"}' === json);
+  });
+});
+
 // describe('array like', function(){
 //   it('should set the data', function(){
 //   });
