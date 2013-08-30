@@ -1,3 +1,4 @@
+var Emitter = require('emitter'); //replace by our own
 
 /**
  * Expose 'Store'
@@ -12,9 +13,10 @@ module.exports = Store;
  */
 
 function Store(data) {
-
+  this.data = data || {};
 }
 
+Emitter(Store);
 
 /**
  * Set store attribute.
@@ -24,7 +26,7 @@ function Store(data) {
  */
 
 Store.prototype.set = function(name, value, plugin) { //add object options
-  // body...
+  this.data[name] = value;
 };
 
 
@@ -36,7 +38,7 @@ Store.prototype.set = function(name, value, plugin) { //add object options
  */
 
 Store.prototype.get = function(name) {
-  // body...
+  return this.data[name];
 };
 
 

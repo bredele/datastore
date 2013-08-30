@@ -4,7 +4,10 @@
   "description": "store component (inspired by olives.js)",
   "version": "0.0.1",
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "component/emitter": "*",
+    "component/assert": "*"
+  },
   "development": {
     "component/assert": "*"
   },

@@ -1,13 +1,13 @@
 var Store = require('store');
 var assert = require('assert');
 
-describe('store initialization', function(){
-  it('should expose a constructor', function(){
-  });
+// describe('store initialization', function(){
+//   it('should expose a constructor', function(){
+//   });
 
-  it('should extend an existing object', function(){
-  });
-});
+//   it('should extend an existing object', function(){
+//   });
+// });
 
 describe('object like', function(){
   var store = null;
@@ -35,11 +35,23 @@ describe('object like', function(){
     var other = new Store({
       name : 'olivier'
     });
-    assert('olivier' === store.get('name'));
+    assert('olivier' === other.get('name'));
   });
 });
 
-describe('array like', function(){
-  it('should set the data', function(){
+describe('store emitter', function(){
+  var store = null;
+  beforeEach(function(){
+    store = new Store();
   });
+
+  it('should emit a change event when set attribute', function(){
+    
+  });
+
 });
+
+// describe('array like', function(){
+//   it('should set the data', function(){
+//   });
+// });
