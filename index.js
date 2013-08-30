@@ -16,7 +16,8 @@ function Store(data) {
   this.data = data || {};
 }
 
-Emitter(Store);
+
+Emitter(Store.prototype);
 
 /**
  * Set store attribute.
@@ -26,7 +27,9 @@ Emitter(Store);
  */
 
 Store.prototype.set = function(name, value, plugin) { //add object options
+  var prev = this.data[name];
   this.data[name] = value;
+  this.emit('change', name, value, prev);
 };
 
 
@@ -39,6 +42,33 @@ Store.prototype.set = function(name, value, plugin) { //add object options
 
 Store.prototype.get = function(name) {
   return this.data[name];
+};
+
+/**
+ * Get store attribute.
+ * @param {String} name
+ * @return {Everything}
+ * @api private
+ */
+
+Store.prototype.has = function(name) {
+  //NOTE: I don't know if it should be public
+  return this.data.hasOwnProperty(name);
+};
+
+
+/**
+ * Delete store attribute.
+ * @param {String} name
+ * @return {Everything}
+ * @api public
+ */
+
+Store.prototype.del = function(name) {
+  if(this.has(name)){
+    delete this.data[name]; //NOTE: do we need to return something?
+    this.emit('deleted', name);
+  }
 };
 
 
