@@ -1,9 +1,6 @@
 var Store = require('store');
 var assert = require('assert');
 
-// describe('store initialization', function(){
-//   it('should expose a constructor', function(){
-//   });
 
 //   it('should extend an existing object', function(){
 //   });
@@ -11,11 +8,19 @@ var assert = require('assert');
 
 describe('General', function(){
 
-  it('should initialize a store with an object', function(){
+  it('should initialize with an object', function(){
     var other = new Store({
       name : 'olivier'
     });
     assert('olivier' === other.get('name'));
+  });
+
+  it('should initialize with a store', function(){
+    var other = new Store({
+      name : 'olivier'
+    });
+    var store = new Store(other);
+    assert('olivier' === store.get('name'));
   });
 
   describe('setter/getter', function(){

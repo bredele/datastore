@@ -14,6 +14,7 @@ module.exports = Store;
  */
 
 function Store(data) {
+  if(data instanceof Store) return data;
   this.data = data || {};
   this.formatters = {};
 }
