@@ -128,6 +128,38 @@ describe('General', function(){
 
   });
 
+  describe('reset', function(){
+    var store = null;
+    beforeEach(function(){
+      store = new Store({
+        name: 'olivier',
+        twitter: 'bredeleca'
+      });
+    });
+
+    it('should reset store', function(){
+      store.reset({
+        github:'bredele'
+      });
+      assert(undefined === store.get('name'));
+      assert(undefined === store.get('twitter'));
+      assert('bredele' === store.get('github'));
+    });
+
+    it('should notify on change', function(){
+      var isDeleted = false;
+      store.on('deleted name', function(){
+        isDeleted = true;
+      }); //TODO: may be spy 
+      store.reset({
+        github:'bredele'
+      });
+
+      assert(true === isDeleted);
+    });
+
+  });
+
 });
 
 describe('formatter', function(){
@@ -171,38 +203,6 @@ describe('computed attributes', function(){
 
     assert('nicolas wietrich' === store.get('name'));
   });
-});
-
-describe('reset', function(){
-  var store = null;
-  beforeEach(function(){
-    store = new Store({
-      name: 'olivier',
-      twitter: 'bredeleca'
-    });
-  });
-
-  it('should reset store', function(){
-    store.reset({
-      github:'bredele'
-    });
-    assert(undefined === store.get('name'));
-    assert(undefined === store.get('twitter'));
-    assert('bredele' === store.get('github'));
-  });
-
-  it('should notify on change', function(){
-    var isDeleted = false;
-    store.on('deleted name', function(){
-      isDeleted = true;
-    }); //TODO: may be spy 
-    store.reset({
-      github:'bredele'
-    });
-
-    assert(true === isDeleted);
-  });
-
 });
 
 describe('utils', function(){

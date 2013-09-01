@@ -7,7 +7,7 @@
   "dependencies": {
     "component/emitter": "*",
     "component/assert": "*",
-    "component/each": "*"
+    "bredele/each": "*"
   },
   "development": {
     "component/assert": "*"
