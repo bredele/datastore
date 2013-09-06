@@ -130,17 +130,16 @@ Store.prototype.compute = function(name, callback) {
  */
 
 Store.prototype.reset = function(data) {
-  var _this = this;
   //remove undefined attributes
   each(this.data, function(key, val){
     if(typeof data[key] === 'undefined'){ //data[key] can be 0
-      _this.del(key);
+      this.del(key);
     }
-  });
+  }, this);
   //set new attributes
   each(data, function(key, val){
-    _this.set(key, val);
-  });
+    this.set(key, val);
+  }, this);
 };
 
 
