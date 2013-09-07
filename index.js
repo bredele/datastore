@@ -1,4 +1,5 @@
 var Emitter = require('emitter'); //TODO:replace by our own with scope
+var clone = require('clone');
 var each = require('each');
 
 /**
@@ -135,6 +136,7 @@ Store.prototype.compute = function(name, callback) {
  */
 
 Store.prototype.reset = function(data) {
+  var copy = clone(this.data);
   //remove undefined attributes
   each(this.data, function(key, val){
     if(typeof data[key] === 'undefined'){
@@ -142,17 +144,16 @@ Store.prototype.reset = function(data) {
       this.emit('deleted ' + key);
     }
   }, this);
-
+  this.data = data;
   //set new attributes
   each(data, function(key, val){
     //TODO:refactor with this.set
-    var prev = this.data[key];
+    var prev = copy[key];
     if(prev !== val) {
       this.emit('change', key, val, prev);
       this.emit('change ' + key, val, prev);
     }
   }, this);
-  this.data = data; //NOTE:may be do clone
 };
 
 

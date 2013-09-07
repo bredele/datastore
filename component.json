@@ -6,8 +6,8 @@
   "keywords": [],
   "dependencies": {
     "component/emitter": "*",
-    "component/assert": "*",
-    "bredele/each": "*"
+    "bredele/each": "*",
+    "bredele/clone": "*"
   },
   "development": {
     "component/assert": "*"
