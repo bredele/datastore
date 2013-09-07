@@ -222,7 +222,11 @@ describe('utils', function(){
   });
 });
 
-// describe('array like', function(){
-//   it('should set the data', function(){
-//   });
-// });
+describe('array like', function(){
+  it('should remove an item properly', function(){
+    var store = new Store(['item1', 'item2', 'item3']);
+    store.del(0);
+    assert(2 === store.data.length);
+  });
+
+});

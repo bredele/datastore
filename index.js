@@ -1,5 +1,5 @@
 var Emitter = require('emitter'); //TODO:replace by our own with scope
-var each = require('each');//TODO:replace by our own with scope
+var each = require('each');
 
 /**
  * Expose 'Store'
@@ -76,8 +76,13 @@ Store.prototype.has = function(name) {
  */
 
 Store.prototype.del = function(name) {
+  //TODO:refactor this is ugly
   if(this.has(name)){
-    delete this.data[name]; //NOTE: do we need to return something?
+    if(this.data instanceof Array){
+      this.data.splice(name, 1);
+    } else {
+      delete this.data[name]; //NOTE: do we need to return something?
+    }
     this.emit('deleted', name);
     this.emit('deleted ' + name);
   }
@@ -103,8 +108,8 @@ Store.prototype.format = function(name, callback, scope) {
 
 /**
  * Compute store attributes
- * @param  {[type]} first_argument 
- * @return {[type]}                
+ * @param  {String} name
+ * @return {Function} callback                
  * @api public
  */
 
@@ -132,14 +137,22 @@ Store.prototype.compute = function(name, callback) {
 Store.prototype.reset = function(data) {
   //remove undefined attributes
   each(this.data, function(key, val){
-    if(typeof data[key] === 'undefined'){ //data[key] can be 0
-      this.del(key);
+    if(typeof data[key] === 'undefined'){
+      this.emit('deleted', key);
+      this.emit('deleted ' + key);
     }
   }, this);
+
   //set new attributes
   each(data, function(key, val){
-    this.set(key, val);
+    //TODO:refactor with this.set
+    var prev = this.data[key];
+    if(prev !== val) {
+      this.emit('change', key, val, prev);
+      this.emit('change ' + key, val, prev);
+    }
   }, this);
+  this.data = data; //NOTE:may be do clone
 };
 
 
