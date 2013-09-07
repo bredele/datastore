@@ -137,14 +137,14 @@ Store.prototype.compute = function(name, callback) {
 
 Store.prototype.reset = function(data) {
   var copy = clone(this.data);
+  this.data = data;
   //remove undefined attributes
-  each(this.data, function(key, val){
+  each(copy, function(key, val){
     if(typeof data[key] === 'undefined'){
       this.emit('deleted', key);
       this.emit('deleted ' + key);
     }
   }, this);
-  this.data = data;
   //set new attributes
   each(data, function(key, val){
     //TODO:refactor with this.set
