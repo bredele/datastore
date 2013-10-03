@@ -1,6 +1,6 @@
 # store
 
-  store component (inspired by olives.js)
+  Store component (inspired by olives.js)
 
 ## Installation
 
