@@ -1,13 +1,13 @@
 {
   "name": "store",
-  "repo": "leafs/store",
+  "repo": "bredele/store",
   "description": "store component (inspired by olives.js)",
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
     "component/emitter": "*",
-    "leafs/each": "*",
-    "leafs/clone": "*"
+    "bredele/each": "*",
+    "bredele/clone": "*"
   },
   "development": {
     "component/assert": "*"
