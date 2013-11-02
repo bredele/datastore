@@ -4,7 +4,7 @@
 
 ## Installation
 
-    $ component install leafs/store
+    $ component install bredele/store
 
 ## API
 
