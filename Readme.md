@@ -53,14 +53,16 @@ store.get(0);
 
 ### .compute(name, fn)
 
- Compute store properties into a new property. Compute is smart enough
- to know which properties to compute.
+ Compute store properties into a new property.
 
 ```js
-store.compute('name', function(){
-  return nickname + firstname;
+store.compute('id', function(){
+  return this.nickname + this.firstname;
 });
 ```
+
+ Compute listen for changes on the computed properties and update automatically
+ the new property.
 
 
 ### .reset(data)
