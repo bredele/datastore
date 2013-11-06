@@ -1,6 +1,6 @@
 # store
 
-  Store component (inspired by olives.js)
+  Store component (inspired by olives.js). A single wrapper for model and collection.
 
 ## Installation
 
