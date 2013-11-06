@@ -51,6 +51,18 @@ array store:
 store.get(0);
 ```
 
+### .compute(name, fn)
+
+ Compute store properties into a new property. Compute is smart enough
+ to know which properties to compute.
+
+```js
+store.compute('name', function(){
+  return nickname + firstname;
+});
+```
+
+
 ### .reset(data)
 
   Reset store with `data` (Object or Array).
