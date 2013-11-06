@@ -37,6 +37,8 @@ store.set(0,{
 });
 ```
 
+  Emit `change` event. 
+
 ### .get(name)
 
  Get an attribute `name`.
@@ -50,6 +52,16 @@ array store:
 ```js
 store.get(0);
 ```
+
+### .del(name)
+
+ Delete a store attribute.
+
+```js
+store.del('nickname');
+```
+
+  Emit `deleted` event.
 
 ### .compute(name, fn)
 
@@ -73,6 +85,7 @@ store.compute('id', function(){
 store.reset([]);
 ```
 
+  Emit `change` and/or `deleted` events. 
   
 
 ## License
