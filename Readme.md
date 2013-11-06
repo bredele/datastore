@@ -51,6 +51,16 @@ array store:
 store.get(0);
 ```
 
+### .reset(data)
+
+  Reset store with `data` (Object or Array).
+
+```js
+store.reset([]);
+```
+
+  
+
 ## License
 
   MIT
