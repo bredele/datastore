@@ -84,8 +84,8 @@ Store.prototype.del = function(name) {
     } else {
       delete this.data[name]; //NOTE: do we need to return something?
     }
-    this.emit('deleted', name);
-    this.emit('deleted ' + name);
+    this.emit('deleted', name, name);
+    this.emit('deleted ' + name, name);
   }
 };
 
@@ -136,7 +136,8 @@ Store.prototype.compute = function(name, callback) {
  */
 
 Store.prototype.reset = function(data) {
-  var copy = clone(this.data);
+  var copy = clone(this.data),
+      length = data.length;
   this.data = data;
 
 
@@ -144,8 +145,8 @@ Store.prototype.reset = function(data) {
     //TODO: we don't need to go through each items for array (only difference)
     each(copy, function(key, val){
       if(typeof data[key] === 'undefined'){
-        this.emit('deleted', key);
-        this.emit('deleted ' + key);
+        this.emit('deleted', key, length);
+        this.emit('deleted ' + key, length);
       }
     }, this);
 
