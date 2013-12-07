@@ -163,6 +163,18 @@ Store.prototype.reset = function(data) {
 
 
 /**
+ * Loop through store data.
+ * @param  {Function} cb   
+ * @param  {[type]}   scope 
+ * @api public
+ */
+
+Store.prototype.loop = function(cb, scope) {
+  each(this.data, cb, scope);
+};
+
+
+/**
  * Stringify model
  * @return {String} json
  * @api public

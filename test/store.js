@@ -211,6 +211,25 @@ describe('computed attributes', function(){
 });
 
 describe('utils', function(){
+
+  describe('loop', function(){
+
+    it('should loop through object data', function() {
+      var keys = '';
+      var values = '';
+      var store = new Store({
+        name : 'olivier',
+        github: 'bredele'
+      });
+      store.loop(function(key, val) {
+        keys += key;
+        values += val;
+      });
+      assert(keys === 'namegithub');
+      assert(values === 'olivierbredele');
+    });
+  });
+
   it('to json', function(){
     var store = new Store({
       name : 'olivier',
