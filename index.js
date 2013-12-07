@@ -170,7 +170,7 @@ Store.prototype.reset = function(data) {
  */
 
 Store.prototype.loop = function(cb, scope) {
-  each(this.data, cb, scope);
+  each(this.data, cb, scope || this);
 };
 
 
