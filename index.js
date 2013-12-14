@@ -183,3 +183,5 @@ Store.prototype.loop = function(cb, scope) {
 Store.prototype.toJSON = function() {
   return JSON.stringify(this.data);
 };
+
+//TODO: localstorage middleware like
