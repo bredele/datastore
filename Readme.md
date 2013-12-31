@@ -48,8 +48,8 @@ store.set(0,{
 });
 ```
 
-  Emit `change` event with `name, value, previous value`
-  Emit `change name` event with `value, previous value`  
+  Emit `change` event with `name, value, previous value`.
+  Emit `change name` event with `value, previous value`.
 
 ### .get(name)
 
@@ -73,8 +73,8 @@ store.get(0);
 store.del('nickname');
 ```
 
-  Emit `deleted` event with `name`
-  Emit `deleted name` event 
+  Emit `deleted` event with `name`.
+  Emit `deleted name` event.
 
 
 ### .on(name, fn)
