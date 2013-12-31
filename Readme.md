@@ -44,11 +44,12 @@ store.set('nickname','bredele');
 array store:
 ```js
 store.set(0,{
-  name : 'mark'
+  name : 'amy'
 });
 ```
 
-  Emit `change` event. 
+  Emit `change` event with `name, value, previous value`
+  Emit `change name` event with `value, previous value`  
 
 ### .get(name)
 
@@ -72,7 +73,19 @@ store.get(0);
 store.del('nickname');
 ```
 
-  Emit `deleted` event.
+  Emit `deleted` event with `name`
+  Emit `deleted name` event 
+
+
+### .on(name, fn)
+
+  Listen events on Store.
+
+```js
+store.on('change', function(name, val) {
+  ...
+});
+```
 
 ### .compute(name, fn)
 
