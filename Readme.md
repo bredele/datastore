@@ -101,6 +101,18 @@ store.compute('id', function(){
  the new property.
 
 
+### .format(name, fn)
+
+  Format an attribute output in Store.
+
+```js
+store.format('nickname', function(val) {
+  return 'hello ' + val;
+});
+
+store.get('nickname'); //hello bredele
+```
+
 ### .reset(data)
 
   Reset store with `data` (Object or Array).
