@@ -9,7 +9,7 @@
 standalone:
 
 ```html
-  <script src="store.js"></script>
+<script src="store.js"></script>
 ```
 
 ## API
