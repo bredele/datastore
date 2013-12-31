@@ -1,6 +1,11 @@
 # store
 
-  Store component (inspired by olives.js). A single wrapper for model and collection.
+  Store component is a single wrapper for your models and collections.
+
+  > Some front end framework provide collections which are basically ordered sets of models (or arrays of objects) with no extra features. Store removes this overhead and helps you focus on your data instead of maintaining something useless.
+
+  Store contains your data and all the logic surrounding it such as formatters, access control, computed properties, reset, local storage and can be easily extended with its [middleware engine](https://github.com/bredele/store#usefn).
+
 
 ## Installation
 
