@@ -1,6 +1,7 @@
 var Emitter = require('emitter'),
     clone = require('clone'),
-    each = require('each');
+    each = require('each'),
+    storage = window.localStorage;
 
 /**
  * Expose 'Store'
@@ -173,6 +174,15 @@ Store.prototype.loop = function(cb, scope) {
   each(this.data, cb, scope || this);
 };
 
+
+Store.prototype.local = function(name, bool) {
+  //TODO: should we do a clear for .local()?
+  if(!bool) {
+    storage.setItem(name, this.toJSON());
+  } else {
+    this.reset(JSON.parse(storage.getItem(name)));
+  }
+};
 
 /**
  * Stringify model
