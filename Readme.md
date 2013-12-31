@@ -48,8 +48,8 @@ store.set(0,{
 });
 ```
 
-  Emit `change` event with `name, value, previous value`.
-  Emit `change name` event with `value, previous value`.
+  Emits `change` event with `name, value, previous value`.<br>
+  Emits `change name` event with `value, previous value`.
 
 ### .get(name)
 
@@ -73,8 +73,8 @@ store.get(0);
 store.del('nickname');
 ```
 
-  Emit `deleted` event with `name`.
-  Emit `deleted name` event.
+  Emits `deleted` event with `name`.<br>
+  Emits `deleted name` event.
 
 
 ### .on(name, fn)
@@ -82,7 +82,7 @@ store.del('nickname');
   Listen events on Store.
 
 ```js
-store.on('change', function(name, val) {
+store.on('change', function(name, val, previous) {
   ...
 });
 ```
@@ -109,7 +109,7 @@ store.compute('id', function(){
 store.reset([]);
 ```
 
-  Emit `change` and/or `deleted` events. 
+  Emits `change` and/or `deleted` events. 
   
 ### .local(name)
 
