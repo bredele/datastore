@@ -8,6 +8,9 @@ components: component.json
 clean:
 	rm -fr build components template.js
 
+store.js: components
+	@component build --standalone store --name store --out .
+
 test: build
 	open test/index.html
 

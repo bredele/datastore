@@ -6,6 +6,12 @@
 
     $ component install bredele/store
 
+standalone:
+
+```html
+  <script src="store.js"></script>
+```
+
 ## API
 
 ### store(data)
