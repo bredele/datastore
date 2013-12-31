@@ -249,3 +249,22 @@ describe('array like', function(){
   });
 
 });
+
+describe("Localstore", function() {
+  it("should persist data in local store", function() {
+    var store = new Store({
+      name: 'olivier'
+    });
+    
+    store.local('bredele');
+  });
+
+  it("should synchronize data with local store", function() {
+    var store = new Store();
+    store.local('bredele', true);
+    expect.equal(store.get('name'), 'olivier');
+  });
+  
+  
+});
+

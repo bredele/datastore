@@ -1,6 +1,6 @@
-var Emitter = require('emitter'); //TODO:replace by our own with scope
-var clone = require('clone');
-var each = require('each');
+var Emitter = require('emitter'),
+    clone = require('clone'),
+    each = require('each');
 
 /**
  * Expose 'Store'
