@@ -103,6 +103,20 @@ store.local('mystore'); //reset with localstorage
 store.local('mystore', true); //save in localstorage
 ```
 
+### .use(fn)
+
+  Use middleware to extend store.
+
+```js
+store.use(function(obj) {
+  obj.save = function() {
+    //send to server
+  };
+});
+...
+store.save();
+```
+
 ## License
 
   MIT

@@ -248,7 +248,15 @@ describe('utils', function(){
     
   });
 
-  it('to json', function(){
+  it('should extend store with middlewares', function() {
+    var store = new Store();
+    store.use(function(obj) {
+      obj.save = function(){};
+    });
+    assert.equal(typeof store.save, 'function');
+  });
+
+  it('should serialize data .toJSON()', function(){
     var store = new Store({
       name : 'olivier',
       github: 'bredele'

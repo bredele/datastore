@@ -175,6 +175,14 @@ Store.prototype.loop = function(cb, scope) {
 };
 
 
+/**
+ * Synchronize with local storage.
+ * 
+ * @param  {String} name 
+ * @param  {Boolean} bool save in localstore
+ * @api public
+ */
+
 Store.prototype.local = function(name, bool) {
   //TODO: should we do a clear for .local()?
   if(!bool) {
@@ -182,7 +190,25 @@ Store.prototype.local = function(name, bool) {
   } else {
     this.reset(JSON.parse(storage.getItem(name)));
   }
+  //TODO: should we return this?
 };
+
+
+/**
+ * Use middlewares to extend store.
+ * A middleware is a function with the store
+ * as first argument.
+ * 
+ * @param  {Function} fn 
+ * @return {this}
+ * @api public
+ */
+
+Store.prototype.use = function(fn) {
+  fn(this);
+  return this;
+};
+
 
 /**
  * Stringify model
