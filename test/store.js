@@ -236,6 +236,7 @@ describe('utils', function(){
         name: 'olivier'
       });
       store.local('bredele');
+      assert.equal(localStorage.getItem('bredele'), store.toJSON());
     });
 
     it("should synchronize data with local store", function() {
