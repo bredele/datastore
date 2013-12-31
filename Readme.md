@@ -87,6 +87,15 @@ store.reset([]);
 
   Emit `change` and/or `deleted` events. 
   
+### .local(name)
+
+  Synchronize store with local storage.
+
+```js
+store.local('mystore'); //reset with localstorage
+...
+store.local('mystore', true); //save in localstorage
+```
 
 ## License
 
