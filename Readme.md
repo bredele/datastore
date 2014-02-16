@@ -149,7 +149,7 @@ store.save();
 
 ## Browser Support
 
-Maple.js supports most ECMAScript 5 compliant browsers from IE8+.
+Store supports most ECMAScript 5 compliant browsers from IE8+.
 
 ## License
 
