@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>List with store</title>
+</head>
+<body>
+	<button onClick="add()">add</button>
+	<button onClick="reset()">reset</button>
+	<ul></ul>
+	<script src="../build/build.js"></script>
+	<script>
+	  var Store = require('store'),
+	  		list = document.querySelector('ul');
+
+	  var store = new Store([]);
+	  store.on('change', function(name, val, prev) {
+	  	if(!prev) {
+	  		var li = document.createElement('li');
+	  		li.innerHTML = val;
+	  		list.appendChild(li);
+	  	} else {
+	  		var children = list.childNodes;
+	  		children[name].innerHTML = val;
+	  	}
+	  });
+
+	  store.on('deleted', function(name, idx) {
+	  	var children = list.childNodes;
+	  	list.removeChild(children[idx]);
+	  });
+
+	  function add() {
+	  	//TODO: wwe should have size handler
+	  	var size = store.data.length;
+	  	store.set(size, size + 1);
+	  }
+
+	  store.reset([1,2,3,4]);
+
+	  function reset() {
+	  	store.reset(['olivier', 'bredele', 'github']);
+	  }
+	</script>
+</body>
+</html>
