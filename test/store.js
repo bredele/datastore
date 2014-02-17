@@ -199,6 +199,30 @@ describe('General', function(){
 
 
     });
+
+    it("should update store-array", function() {
+      var changed = false,
+        added = false,
+      store = new Store(['hello']);
+
+      store.on('change 0', function() {
+        changed = true;
+      });
+      store.on('change 1', function() {
+        added = true;
+      });
+      store.set(['world', {
+        github: 'bredele'
+       }]);
+      
+      assert.deepEqual(store.data, ['world', {
+        github: 'bredele'
+       }]);
+      assert.equal(changed, true);
+      assert.equal(added, true);
+      
+    });
+    
   });
   
 

@@ -51,6 +51,24 @@ store.set(0,{
   Emits `change` event with `name, value, previous value`.<br>
   Emits `change name` event with `value, previous value`.
 
+ Or update a store with an object of same type:
+
+object store:
+```js
+store.set({
+  nickname: 'olivier',
+  lastname: 'wietrich'
+});
+```
+
+array store:
+```js
+store.set([
+  name: 'olivier',
+  github: 'bredele'
+]);
+```
+
 ### .get(name)
 
  Get an attribute `name`.

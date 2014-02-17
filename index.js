@@ -33,7 +33,8 @@ Emitter(Store.prototype);
 
 Store.prototype.set = function(name, value, plugin) { //add object options
   var prev = this.data[name];
-  if(typeof name === 'object') each(name, this.set, this);
+  //TODO: what happend if update store-object with an array and vice versa?
+  if(typeof name === 'object') return each(name, this.set, this);
   if(prev !== value) {
     this.data[name] = value;
     this.emit('change', name, value, prev);
