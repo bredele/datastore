@@ -165,6 +165,43 @@ describe('General', function(){
 
   });
 
+  describe("update", function() {
+    it('should update store-object', function() {
+      var githubChanged = false,
+        projectAdded = false,
+        store = new Store({
+          github: 'bredele',
+          repo: 'store'
+        });
+
+      store.on('change github', function(val) {
+        if(val === 'leafs') githubChanged = true;
+      });
+
+      store.on('change project', function(val, prev) {
+        if(!prev) projectAdded = true;
+      });
+
+  
+      store.set({
+        github: 'leafs',
+        project: 'maple'
+      });
+
+      assert.deepEqual(store.data, {
+        github: 'leafs',
+        repo: 'store',
+        project: 'maple'
+      });
+      assert.equal(githubChanged, true);
+      assert.equal(projectAdded, true);
+
+
+
+    });
+  });
+  
+
 });
 
 describe('formatter', function(){
