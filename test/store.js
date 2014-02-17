@@ -134,35 +134,98 @@ describe('General', function(){
   });
 
   describe('reset', function(){
-    var store = null;
-    beforeEach(function(){
-      store = new Store({
-        name: 'olivier',
-        twitter: 'bredeleca'
-      });
-    });
-
-    it('should reset store', function(){
-      store.reset({
-        github:'bredele'
-      });
-      assert(undefined === store.get('name'));
-      assert(undefined === store.get('twitter'));
-      assert('bredele' === store.get('github'));
-    });
-
-    it('should notify on change', function(){
-      var isDeleted = false;
-      store.on('deleted name', function(){
-        isDeleted = true;
-      }); //TODO: may be spy 
-      store.reset({
-        github:'bredele'
+    describe("reset store-object", function() {
+      var store = null;
+      beforeEach(function(){
+        store = new Store({
+          name: 'olivier',
+          twitter: 'bredeleca'
+        });
       });
 
-      assert(true === isDeleted);
-    });
+      it('should reset store', function(){
+        store.reset({
+          github:'bredele'
+        });
+        assert(undefined === store.get('name'));
+        assert(undefined === store.get('twitter'));
+        assert('bredele' === store.get('github'));
+      });
 
+      it('should notify on change', function(){
+        var isDeleted = false;
+        store.on('deleted name', function(){
+          isDeleted = true;
+        }); //TODO: may be spy 
+        store.reset({
+          github:'bredele'
+        });
+
+        assert(true === isDeleted);
+      });
+    });
+    
+    describe("reset store-array", function() {
+
+      it("should delete and change items", function() {
+        var index = 0,
+           store = new Store([]);
+        for(var i = 0; i < 1000; i++) {
+          store.set(i, 'item' + i);
+        }
+
+        store.on('deleted', function() {
+          index++;
+        });
+
+        store.reset([
+          'store',
+          {
+            github: 'store'
+          }
+        ]);
+
+        assert.deepEqual(store.data, [
+          'store', 
+          {
+            github: 'store'
+          }
+        ]);
+        //998 deleted and 2 changed
+        assert.equal(index, 998);
+      });
+
+      it("should add and change items", function() {
+        var index = 0,
+            store = new Store([]);
+
+        for(var i = 0; i < 1000; i++) {
+          store.set(i, {
+            item: 'item'+ i
+          });
+        }
+
+        var copy = store.data.slice(0);
+        for(var j = 1000; j < 2000; j++) {
+          copy.push('item' + j);
+        }
+
+        store.on('change', function(idx, val, prev) {
+          if(!prev) {
+            index++;
+          } else {
+            index--;
+          }
+        });
+        store.reset(copy);
+        assert.equal(store.data.length, 2000);
+        assert.equal(index, 1000);
+
+      });
+      
+      
+    });
+    
   });
 
   describe("update", function() {
@@ -220,7 +283,7 @@ describe('General', function(){
        }]);
       assert.equal(changed, true);
       assert.equal(added, true);
-      
+
     });
     
   });
