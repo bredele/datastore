@@ -63,10 +63,11 @@ store.set({
 
 array store:
 ```js
-store.set([
+//update 0
+store.set([{
   name: 'olivier',
   github: 'bredele'
-]);
+}]);
 ```
 
 ### .get(name)
