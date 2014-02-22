@@ -35,6 +35,19 @@ describe('General', function(){
       assert('olivier' === store.get('name'));
     });
 
+    //SHould we clone the result?
+    // it('should get a clone of a data attribute', function() {
+    //   store.set('github', {
+    //     repo: 'store'
+    //   });
+    //   var cp = store.get('github');
+    //   cp.repo = 'bredele';
+
+    //   assert.deepEqual(store.get('github'), {
+    //     repo: 'store'
+    //   });
+    // });
+
     it('should update an existing store attribute', function(){
       store.set('name', 'olivier');
       store.set('name', 'bredele');
@@ -154,14 +167,14 @@ describe('General', function(){
 
       it('should notify on change', function(){
         var isDeleted = false;
-        store.on('deleted name', function(){
+        store.on('deleted name', function() {
           isDeleted = true;
         }); //TODO: may be spy 
         store.reset({
           github:'bredele'
         });
 
-        assert(true === isDeleted);
+        assert.equal(true, isDeleted);
       });
     });
     

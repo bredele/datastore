@@ -7,10 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "zuul -- test/*.js",
+    "test-local": "zuul --local -- test/*.js"
   },
   "devDependencies": {
-    "mocha": "~1.12.0"
+    "mocha": "~1.12.0",
+    "zuul": "~1.5.4"
   },
   "repository": {
     "type": "git",
