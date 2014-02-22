@@ -21,8 +21,9 @@ standalone:
 
 Store supports all mainstream browsers from IE8+.
 
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/bredele.svg)]()
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/bredele.svg)](htp://github.com/bredele/store)
 
+Supports IE7 with JSON polyfill.
 
 ## API
 
@@ -180,7 +181,7 @@ See [plugins](#plugins)
 Here's a list of availaible plugins:
   
   - [path](http://github.com/bredele/store-path)
-  
+
 ```js
   store.path('country.canada'); //get
   store.path('country.canada.city', 'calgary');//set
