@@ -180,10 +180,11 @@ See [plugins](#plugins)
 Here's a list of availaible plugins:
   
   - [path](http://github.com/bredele/store-path)
-    ```js
-      store.path('country.canada'); //get
-      store.path('country.canada.city', 'calgary');//set
-    ```
+  
+```js
+  store.path('country.canada'); //get
+  store.path('country.canada.city', 'calgary');//set
+```
 
 
 ## License
