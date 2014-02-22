@@ -17,6 +17,13 @@ standalone:
 <script src="store.js"></script>
 ```
 
+## Browser Support
+
+Store supports all mainstream browsers from IE8+.
+
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/bredele.svg)]()
+
+
 ## API
 
 ### store(data)
@@ -166,9 +173,18 @@ store.use(function(obj) {
 store.save();
 ```
 
-## Browser Support
+See [plugins](#plugins)
 
-Store supports most ECMAScript 5 compliant browsers from IE8+.
+## Plugins
+
+Here's a list of availaible plugins:
+  
+  - [path](http://github.com/bredele/store-path)
+    ```js
+      store.path('country.canada'); //get
+      store.path('country.canada.city', 'calgary');//set
+    ```
+
 
 ## License
 
