@@ -1,18 +1,28 @@
 {
-  "name": "store",
-  "version": "0.0.0",
-  "description": "store component (inspired by olives.js)",
+  "name": "store-component",
+  "version": "0.1.0",
+  "description": "Store component is a single wrapper for your data models and collections.",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "example": "examples"
+  },
+  "dependencies": {
+    "emitter-component": "~1.1.1",
+    "clone-bredele": "0.0.1",
+    "each-bredele": "0.0.1"
+  },
+  "devDependencies": {
+    "zuul": "~1.5.4",
+    "mocha": "~1.12.1"
+  },
+  "browser": {
+    "emitter" : "emitter-component",
+    "each": "each-bredele",
+    "clone": "clone-bredele",
   },
   "scripts": {
     "test": "zuul -- test/*.js",
     "test-local": "zuul --local -- test/*.js"
-  },
-  "devDependencies": {
-    "mocha": "~1.12.0",
-    "zuul": "~1.5.4"
   },
   "repository": {
     "type": "git",
@@ -20,15 +30,16 @@
   },
   "keywords": [
     "model",
+    "collections",
     "store",
-    "object",
-    "array",
-    "mvc"
+    "data",
+    "localStorage",
+    "mvc",
+    "mvvm",
+    "object"
   ],
-  "author": "Olivier Wietrich",
-  "license": "BSD",
-  "readmeFilename": "Readme.md",
-  "gitHead": "6f7663855a610eec6b2ea1dae14431f229fa902d",
+  "author": "Olivier Wietrich <olivier.wietrich@gmail.com> (http://github.com/bredele)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bredele/store/issues"
   }

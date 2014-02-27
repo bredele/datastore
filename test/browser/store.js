@@ -1,6 +1,10 @@
-var Store = require('..'),
-    assert = require('assert');
+var Store = require('store');
+var assert = require('assert');
 
+
+//   it('should extend an existing object', function(){
+//   });
+// });
 
 describe('General', function(){
 
