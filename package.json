@@ -18,7 +18,7 @@
   "browser": {
     "emitter" : "emitter-component",
     "each": "each-bredele",
-    "clone": "clone-bredele",
+    "clone": "clone-bredele"
   },
   "scripts": {
     "test": "zuul -- test/*.js",
