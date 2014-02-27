@@ -1,5 +1,7 @@
 # store
 
+[![Build Status](https://travis-ci.org/bredele/store.png?branch=master)](https://travis-ci.org/bredele/store)
+
   Store component is a single wrapper for your models and collections.
 
   > Some front end framework provide collections which are basically ordered sets of models (or arrays of objects) with no extra features. Store removes this overhead and helps you focus on your data instead of maintaining something useless.
@@ -20,9 +22,6 @@ standalone:
 ## Browser Support
 
 Store supports all mainstream browsers from IE8+.
-
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/bredele.svg)](htp://github.com/bredele/store)
-
 Supports IE7 with JSON polyfill.
 
 ## API
