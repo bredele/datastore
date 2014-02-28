@@ -143,7 +143,6 @@ Store.prototype.reset = function(data) {
 		length = data.length;
 		this.data = data;
 
-  debugger
 	each(copy, function(key, val){
 		if(typeof data[key] === 'undefined'){
 			this.emit('deleted', key, length);
