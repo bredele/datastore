@@ -343,6 +343,15 @@ describe('computed attributes', function(){
   });
 });
 
+describe("pipe", function() {
+  it("should have a pipe function", function() {
+    var store = new Store();
+    assert.equal(typeof store.pipe, 'function');
+  });
+  
+});
+
+
 describe('utils', function(){
 
   describe('loop', function(){

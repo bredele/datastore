@@ -174,6 +174,10 @@ Store.prototype.loop = function(cb, scope) {
 };
 
 
+Store.prototype.pipe = function() {
+	
+};
+
 /**
  * Synchronize with local storage.
  * 
