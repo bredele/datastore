@@ -362,7 +362,7 @@ describe("pipe", function() {
       assert.deepEqual(child.data, store.data);
     });
 
-    it("should update piped store when changes", function() {
+    it("should update piped store on changes", function() {
       var child = new Store();
       store.pipe(child);
       store.set('repo', 'brick');
@@ -374,6 +374,16 @@ describe("pipe", function() {
       store.pipe(child);
       store.del('repo');
       assert.equal(child.get('repo'), undefined);
+      assert.deepEqual(child.data, store.data);
+    });
+
+    it('should reset piped store on reset', function() {
+      var child = new Store();
+      store.pipe(child);
+      store.reset({
+        repo:'brick'
+      });
+      assert.equal(child.get('repo'), 'brick');
       assert.deepEqual(child.data, store.data);
     });
     
