@@ -344,9 +344,24 @@ describe('computed attributes', function(){
 });
 
 describe("pipe", function() {
+  var store;
+  beforeEach(function() {
+    store = new Store({
+      repo: 'store',
+      github: 'bredele'
+    });
+  });
+
   it("should have a pipe function", function() {
-    var store = new Store();
     assert.equal(typeof store.pipe, 'function');
+  });
+
+  //NOTE
+  it("should pipe two stores", function() {
+    var child = new Store();
+    store.pipe(child);
+    assert.equal(child.get('repo'), 'store');
+    assert.equal(child.get('github'), 'bredele');
   });
   
 });

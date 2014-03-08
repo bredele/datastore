@@ -174,8 +174,14 @@ Store.prototype.loop = function(cb, scope) {
 };
 
 
-Store.prototype.pipe = function() {
-	
+/**
+ *
+ * note: pipe only stores of same type
+ * @return {[type]} [description]
+ */
+
+Store.prototype.pipe = function(store) {
+	store.set(this.data);
 };
 
 /**
