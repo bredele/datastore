@@ -194,11 +194,23 @@ Here's a list of availaible plugins:
   
   - [path](http://github.com/bredele/store-path)
 
+to access nested data easily:
+
 ```js
   store.path('country.canada'); //get
   store.path('country.canada.city', 'calgary');//set
 ```
 
+  - [supplant](http://github.com/bredele/store-supplant)
+
+to create template engines on both client/server sides:
+
+```js
+  store.filter('upper', function(str) {
+    return str.toUpperCase();
+  });
+  store.supplant('my name is {{name} | upper}');
+```
 
 ## License
 
