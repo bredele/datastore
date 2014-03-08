@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/bredele/store.png?branch=master)](https://travis-ci.org/bredele/store)
 
-  Store component is a single wrapper for your models and collections.
+  Store component is a single wrapper for your models and collections (inspired by [Olives.js](http://github.com/flams/olives)).
 
   > Some front end framework provide collections which are basically ordered sets of models (or arrays of objects) with no extra features. Store removes this overhead and helps you focus on your data instead of maintaining something useless.
 
