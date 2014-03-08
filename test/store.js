@@ -344,24 +344,39 @@ describe('computed attributes', function(){
 });
 
 describe("pipe", function() {
-  var store;
-  beforeEach(function() {
-    store = new Store({
-      repo: 'store',
-      github: 'bredele'
+
+  describe("pipe full store", function() {
+    var store;
+    beforeEach(function() {
+      store = new Store({
+        repo: 'store',
+        github: 'bredele'
+      });
     });
-  });
 
-  it("should have a pipe function", function() {
-    assert.equal(typeof store.pipe, 'function');
-  });
+    it("should pipe two stores", function() {
+      var child = new Store();
+      store.pipe(child);
+      assert.equal(child.get('repo'), 'store');
+      assert.equal(child.get('github'), 'bredele');
+      assert.deepEqual(child.data, store.data);
+    });
 
-  //NOTE
-  it("should pipe two stores", function() {
-    var child = new Store();
-    store.pipe(child);
-    assert.equal(child.get('repo'), 'store');
-    assert.equal(child.get('github'), 'bredele');
+    it("should update piped store when changes", function() {
+      var child = new Store();
+      store.pipe(child);
+      store.set('repo', 'brick');
+      assert.equal(child.get('repo'), 'brick');
+    });
+
+    it('should update piped store when deleted', function() {
+      var child = new Store();
+      store.pipe(child);
+      store.del('repo');
+      assert.equal(child.get('repo'), undefined);
+      assert.deepEqual(child.data, store.data);
+    });
+    
   });
   
 });

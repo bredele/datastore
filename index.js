@@ -182,6 +182,12 @@ Store.prototype.loop = function(cb, scope) {
 
 Store.prototype.pipe = function(store) {
 	store.set(this.data);
+	this.on('change', function(name, val) {
+		store.set(name, val);
+	});
+	this.on('deleted', function(name) {
+		store.del(name);
+	});
 };
 
 /**
