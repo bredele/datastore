@@ -144,11 +144,13 @@ store.get('nickname'); //hello bredele
   Pipe two stores.
 
 ```js
+//update child with store
 store.pipe(child);
+
 store.set('name', 'olivier');
 child.get('name'); //olivier
 ```
- Listen for changes and update the piped store.
+ Listen for changes and update both stores.
 
 ### .reset(data)
 
