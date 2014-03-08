@@ -26,6 +26,15 @@ Emitter(Store.prototype);
 
 /**
  * Set store attribute.
+ * example:
+ *
+ *   //set
+ *   .set('name', 'bredele');
+ *   //update
+ *   .set({
+ *     name: 'bredele'
+ *   });
+ *   
  * @param {String} name
  * @param {Everything} value
  * @api public
@@ -40,13 +49,15 @@ Store.prototype.set = function(name, value, plugin) { //add object options
 		this.emit('change', name, value, prev);
 		this.emit('change ' + name, value, prev);
 	}
+	return this;
 };
 
 
 /**
  * Get store attribute.
+ * 
  * @param {String} name
- * @return {Everything}
+ * @return {this}
  * @api public
  */
 
@@ -61,8 +72,9 @@ Store.prototype.get = function(name) {
 
 /**
  * Get store attribute.
+ * 
  * @param {String} name
- * @return {Everything}
+ * @return {Boolean}
  * @api private
  */
 
@@ -74,8 +86,9 @@ Store.prototype.has = function(name) {
 
 /**
  * Delete store attribute.
+ * 
  * @param {String} name
- * @return {Everything}
+ * @return {this}
  * @api public
  */
 
@@ -90,6 +103,7 @@ Store.prototype.del = function(name) {
 		this.emit('deleted', name, name);
 		this.emit('deleted ' + name, name);
 	}
+	return this;
 };
 
 
@@ -97,10 +111,16 @@ Store.prototype.del = function(name) {
  * Set format middleware.
  * Call formatter everytime a getter is called.
  * A formatter should always return a value.
+ * example:
+ *
+ *   .format('name', function(val) {
+ *     return val.toUpperCase();
+ *   });
+ *   
  * @param {String} name
  * @param {Function} callback
  * @param {Object} scope
- * @return this
+ * @return {this}
  * @api public
  */
 
@@ -112,8 +132,15 @@ Store.prototype.format = function(name, callback, scope) {
 
 /**
  * Compute store attributes
+ * example:
+ *
+ *   .compute('name', function() {
+ *     return this.firstName + ' ' + this.lastName;
+ *   });
+ *   
  * @param  {String} name
- * @return {Function} callback                
+ * @param {Function} callback
+ * @return {this}                
  * @api public
  */
 
@@ -129,12 +156,15 @@ Store.prototype.compute = function(name, callback) {
 			this.set(name, callback.call(this.data));
 		});
 	}
+	return this;
 };
 
 
 /**
  * Reset store
+ * 
  * @param  {Object} data 
+ * @return {this} 
  * @api public
  */
 
@@ -159,25 +189,36 @@ Store.prototype.reset = function(data) {
 			this.emit('change ' + key, val, prev);
 		}
 	}, this);
+	return this;
 };
 
 
 /**
  * Loop through store data.
+ * 
  * @param  {Function} cb   
  * @param  {[type]}   scope 
+ * @return {this} 
  * @api public
  */
 
 Store.prototype.loop = function(cb, scope) {
 	each(this.data, cb, scope || this);
+	return this;
 };
 
 
 /**
+ * Pipe two stores (merge and listen data).
+ * example:
  *
+ *   .pipe(store);
+ *   
  * note: pipe only stores of same type
- * @return {[type]} [description]
+ *
+ * @param {Store} store 
+ * @return {this} 
+ * @api public
  */
 
 Store.prototype.pipe = function(store) {
@@ -188,6 +229,7 @@ Store.prototype.pipe = function(store) {
 	this.on('deleted', function(name) {
 		store.del(name);
 	});
+	return this;
 };
 
 /**
@@ -195,6 +237,7 @@ Store.prototype.pipe = function(store) {
  * 
  * @param  {String} name 
  * @param  {Boolean} bool save in localstore
+ * @return {this} 
  * @api public
  */
 
@@ -205,7 +248,7 @@ Store.prototype.local = function(name, bool) {
 	} else {
 		this.reset(JSON.parse(storage.getItem(name)));
 	}
-	//TODO: should we return this?
+	return this;
 };
 
 

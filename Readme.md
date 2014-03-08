@@ -139,6 +139,17 @@ store.format('nickname', function(val) {
 store.get('nickname'); //hello bredele
 ```
 
+### .pipe(store)
+
+  Pipe two stores.
+
+```js
+store.pipe(child);
+store.set('name', 'olivier');
+child.get('name'); //olivier
+```
+ Listen for changes and update the piped store.
+
 ### .reset(data)
 
   Reset store with `data` (Object or Array).

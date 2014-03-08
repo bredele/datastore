@@ -362,6 +362,16 @@ describe("pipe", function() {
       assert.deepEqual(child.data, store.data);
     });
 
+    it('should update the piped store', function() {
+      var child = new Store({
+        hello: 'world'
+      });
+      store.pipe(child);
+      assert.equal(child.get('repo'), 'store');
+      assert.equal(child.get('github'), 'bredele');
+      assert.equal(child.get('hello'), 'world'); 
+    });
+
     it("should update piped store on changes", function() {
       var child = new Store();
       store.pipe(child);
