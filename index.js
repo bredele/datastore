@@ -1,7 +1,14 @@
-var Emitter = require('emitter'),
-		clone = require('clone'),
-		each = require('each'),
-		storage = window.localStorage;
+var storage = null,
+		Emitter = require('emitter-component');
+try {
+  storage = window.localStorage;
+  var clone = require('clone');
+  var each = require('each');
+} catch(_) {
+	var clone = require('clone-bredele');
+  var each = require('each-bredele');
+}
+
 
 /**
  * Expose 'Store'
