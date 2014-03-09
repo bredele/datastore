@@ -13,11 +13,9 @@
 
     $ component install bredele/store
 
-standalone:
+nodejs:
 
-```html
-<script src="store.js"></script>
-```
+    $ npm install store-component
 
 ## Browser Support
 
