@@ -2,10 +2,6 @@ var Store = require('store');
 var assert = require('assert');
 
 
-//   it('should extend an existing object', function(){
-//   });
-// });
-
 describe('General', function(){
 
   it('should initialize with an object', function(){
@@ -346,6 +342,65 @@ describe('computed attributes', function(){
     assert('nicolas wietrich' === store.get('name'));
   });
 });
+
+describe("pipe", function() {
+
+  describe("pipe full store", function() {
+    var store;
+    beforeEach(function() {
+      store = new Store({
+        repo: 'store',
+        github: 'bredele'
+      });
+    });
+
+    it("should pipe two stores", function() {
+      var child = new Store();
+      store.pipe(child);
+      assert.equal(child.get('repo'), 'store');
+      assert.equal(child.get('github'), 'bredele');
+      assert.deepEqual(child.data, store.data);
+    });
+
+    it('should update the piped store', function() {
+      var child = new Store({
+        hello: 'world'
+      });
+      store.pipe(child);
+      assert.equal(child.get('repo'), 'store');
+      assert.equal(child.get('github'), 'bredele');
+      assert.equal(child.get('hello'), 'world'); 
+    });
+
+    it("should update piped store on changes", function() {
+      var child = new Store();
+      store.pipe(child);
+      store.set('repo', 'brick');
+      assert.equal(child.get('repo'), 'brick');
+    });
+
+    it('should update piped store when deleted', function() {
+      var child = new Store();
+      store.pipe(child);
+      store.del('repo');
+      assert.equal(child.get('repo'), undefined);
+      assert.deepEqual(child.data, store.data);
+    });
+
+    it('should reset piped store on reset', function() {
+      var child = new Store();
+      store.pipe(child);
+      store.reset({
+        repo:'brick'
+      });
+      assert.equal(child.get('repo'), 'brick');
+      assert.deepEqual(child.data, store.data);
+    });
+    
+  });
+  
+});
+
 
 describe('utils', function(){
 

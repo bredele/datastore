@@ -1,6 +1,6 @@
 {
   "name": "store-component",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Store component is a single wrapper for your data models and collections.",
   "main": "index.js",
   "directories": {
