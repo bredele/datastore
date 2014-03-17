@@ -210,6 +210,17 @@ to create template engines on both client/server sides:
   store.supplant('my name is {{name} | upper}');
 ```
 
+  - [queue](http://github.com/bredele/emitter-queue)
+
+to queue events.
+
+```js
+  store.queue('hello', 'world');
+  store.on('hello', function(val) {
+    //world
+  });
+```
+
 ## License
 
 The MIT License (MIT)
