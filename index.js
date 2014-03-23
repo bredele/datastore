@@ -57,6 +57,7 @@ Store.prototype.set = function(name, value, plugin) { //add object options
 	if(typeof name === 'object') return each(name, this.set, this);
 	if(prev !== value) {
 		this.data[name] = value;
+		this.emit('updated', name, value);
 		this.emit('change', name, value, prev);
 		this.emit('change ' + name, value, prev);
 	}
@@ -111,6 +112,7 @@ Store.prototype.del = function(name) {
 		} else {
 			delete this.data[name]; //NOTE: do we need to return something?
 		}
+		this.emit('updated', name);
 		this.emit('deleted', name, name);
 		this.emit('deleted ' + name, name);
 	}
@@ -186,6 +188,7 @@ Store.prototype.reset = function(data) {
 
 	each(copy, function(key, val){
 		if(typeof data[key] === 'undefined'){
+			this.emit('updated', key);
 			this.emit('deleted', key, length);
 			this.emit('deleted ' + key, length);
 		}
@@ -196,6 +199,7 @@ Store.prototype.reset = function(data) {
 		//TODO:refactor with this.set
 		var prev = copy[key];
 		if(prev !== val) {
+			this.emit('updated', key, val);
 			this.emit('change', key, val, prev);
 			this.emit('change ' + key, val, prev);
 		}
@@ -234,10 +238,8 @@ Store.prototype.loop = function(cb, scope) {
 
 Store.prototype.pipe = function(store) {
 	store.set(this.data);
-	this.on('change', function(name, val) {
-		store.set(name, val);
-	});
-	this.on('deleted', function(name) {
+	this.on('updated', function(name, val) {
+		if(val) return store.set(name, val);
 		store.del(name);
 	});
 	return this;

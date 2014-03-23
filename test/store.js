@@ -402,6 +402,45 @@ describe("pipe", function() {
 });
 
 
+describe("Plugin hook", function() {
+
+    var store;
+    beforeEach(function() {
+      store = new Store({
+        repo: 'store',
+        github: 'bredele'
+      });
+    });
+
+  it("should trigger an updated event on set", function(done) {
+    store.on('updated', function() {
+      done();
+    });
+    store.set('repo', 'other');
+  });
+
+  it("should trigger an updated event on del", function(done) {
+    store.on('updated', function() {
+      done();
+    });
+    store.del('repo');
+  });
+
+  it("should trigger an updated event on reset", function() {
+    var incr = 0;
+    store.on('updated', function(name, val) {
+      incr++;
+    });
+    store.set({
+      repo: 'other',
+      github: 'other'
+    });
+    assert.equal(incr, 2);
+  });
+  
+});
+
+
 describe('utils', function(){
 
   describe('loop', function(){
