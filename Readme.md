@@ -189,6 +189,15 @@ See [plugins](#plugins)
 ## Plugins
 
 Here's a list of availaible plugins:
+
+  - [mirror](http://github.com/bredele/store-mirror)
+
+to get real time updates from a store in server side.
+
+```js
+  store.use(mirror('mychannel'));
+  store.set('hello', 'world');
+```
   
   - [path](http://github.com/bredele/store-path)
 
