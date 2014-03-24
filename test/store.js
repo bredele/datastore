@@ -419,6 +419,15 @@ describe("Plugin hook", function() {
     store.set('repo', 'other');
   });
 
+  it('should not trigger updated event on set', function() {
+    var called = false;
+    store.on('updated', function() {
+      called = true;
+    });
+    store.set('repo', 'other', true);
+    assert.equal(called, false);
+  });
+
   it("should trigger an updated event on del", function(done) {
     store.on('updated', function() {
       done();
@@ -426,16 +435,37 @@ describe("Plugin hook", function() {
     store.del('repo');
   });
 
+  it('should not trigger updated event on del', function() {
+    var called = false;
+    store.on('updated', function() {
+      called = true;
+    });
+    store.del('repo', true);
+    assert.equal(called, false);
+  });
+
   it("should trigger an updated event on reset", function() {
     var incr = 0;
     store.on('updated', function(name, val) {
       incr++;
     });
-    store.set({
+    store.reset({
       repo: 'other',
       github: 'other'
     });
     assert.equal(incr, 2);
+  });
+
+  it('should not trigger updated event on reset', function() {
+    var called = false;
+    store.on('updated', function() {
+      called = true;
+    });
+    store.reset({
+      repo: 'other',
+      github: 'other'
+    }, true);
+    assert.equal(called, false);
   });
   
 });

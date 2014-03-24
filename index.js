@@ -51,13 +51,13 @@ Emitter(Store.prototype);
  * @api public
  */
 
-Store.prototype.set = function(name, value, plugin) { //add object options
+Store.prototype.set = function(name, value, strict) { //add object options
 	var prev = this.data[name];
 	//TODO: what happend if update store-object with an array and vice versa?
 	if(typeof name === 'object') return each(name, this.set, this);
 	if(prev !== value) {
 		this.data[name] = value;
-		this.emit('updated', name, value);
+		if(!strict) this.emit('updated', name, value);
 		this.emit('change', name, value, prev);
 		this.emit('change ' + name, value, prev);
 	}
@@ -104,7 +104,7 @@ Store.prototype.has = function(name) {
  * @api public
  */
 
-Store.prototype.del = function(name) {
+Store.prototype.del = function(name, strict) {
 	//TODO:refactor this is ugly
 	if(this.has(name)){
 		if(this.data instanceof Array){
@@ -112,7 +112,7 @@ Store.prototype.del = function(name) {
 		} else {
 			delete this.data[name]; //NOTE: do we need to return something?
 		}
-		this.emit('updated', name);
+		if(!strict) this.emit('updated', name);
 		this.emit('deleted', name, name);
 		this.emit('deleted ' + name, name);
 	}
@@ -181,14 +181,14 @@ Store.prototype.compute = function(name, callback) {
  * @api public
  */
 
-Store.prototype.reset = function(data) {
+Store.prototype.reset = function(data, strict) {
 	var copy = clone(this.data),
 		length = data.length;
 		this.data = data;
 
 	each(copy, function(key, val){
 		if(typeof data[key] === 'undefined'){
-			this.emit('updated', key);
+			if(!strict) this.emit('updated', key);
 			this.emit('deleted', key, length);
 			this.emit('deleted ' + key, length);
 		}
@@ -199,7 +199,7 @@ Store.prototype.reset = function(data) {
 		//TODO:refactor with this.set
 		var prev = copy[key];
 		if(prev !== val) {
-			this.emit('updated', key, val);
+			if(!strict) this.emit('updated', key, val);
 			this.emit('change', key, val, prev);
 			this.emit('change ' + key, val, prev);
 		}
