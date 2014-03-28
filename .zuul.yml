@@ -4,8 +4,6 @@ browsers:
     version: latest
   - name: firefox
     version: latest
-  - name: opera
-    version: latest    
   - name: safari
     version: latest
   - name: ie
