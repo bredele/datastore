@@ -11,6 +11,8 @@
 
 ## Installation
 
+component:
+
     $ component install bredele/store
 
 nodejs:
