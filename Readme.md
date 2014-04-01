@@ -15,8 +15,8 @@
 
 nodejs:
 
-    $ npm install store-component
-
+    $ npm install bredele-store
+    
 ## Browser Support
 
 Store supports all mainstream browsers from IE8+.

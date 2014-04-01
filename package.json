@@ -1,5 +1,5 @@
 {
-  "name": "store-component",
+  "name": "bredele-store",
   "version": "0.1.7",
   "description": "Store component is a single wrapper for your data models and collections.",
   "main": "index.js",
@@ -7,16 +7,16 @@
     "example": "examples"
   },
   "dependencies": {
-    "emitter-component": "~1.1.1",
     "clone-bredele": "0.0.1",
-    "each-bredele": "0.0.1"
+    "each-bredele": "0.0.1",
+    "component-emitter": "~1.1.2"
   },
   "devDependencies": {
     "zuul": "~1.5.4",
     "mocha": "~1.12.1"
   },
   "browser": {
-    "emitter" : "emitter-component",
+    "emitter": "emitter-component",
     "each": "each-bredele",
     "clone": "clone-bredele"
   },
