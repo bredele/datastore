@@ -1,12 +1,14 @@
 var storage = null,
-		Emitter = require('component-emitter'),
+		Emitter,
 		clone,
 		each;
 try {
   storage = window.localStorage;
+  Emitter = require('emitter');
   clone = require('clone');
   each = require('each');
 } catch(_) {
+	Emitter = require('component-emitter');
 	clone = require('clone-bredele');
   each = require('each-bredele');
 }
