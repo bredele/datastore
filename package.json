@@ -1,6 +1,6 @@
 {
   "name": "bredele-store",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Store component is a single wrapper for your data models and collections.",
   "main": "index.js",
   "directories": {
