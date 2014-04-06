@@ -1,14 +1,17 @@
-var storage = null,
-		Emitter = require('component-emitter'),
-		clone,
-		each;
+
+/**
+ * Module dependencies.
+ * @api private
+ */
+
+var Emitter = require('component-emitter');
+var clone = require('bredele-clone');
+var each = require('bredele-each');
 try {
-  storage = window.localStorage;
-  clone = require('clone');
-  each = require('each');
+  var storage = window.localStorage;
+
 } catch(_) {
-	clone = require('clone-bredele');
-  each = require('each-bredele');
+  var storage = null;
 }
 
 
@@ -25,13 +28,16 @@ module.exports = Store;
  */
 
 function Store(data) {
-	if(data instanceof Store) return data;
-	this.data = data || {};
-	this.formatters = {};
+  if(data instanceof Store) return data;
+  this.data = data || {};
+  this.formatters = {};
 }
 
 
+//is an emitter
+
 Emitter(Store.prototype);
+
 
 /**
  * Set store attribute.
@@ -50,16 +56,16 @@ Emitter(Store.prototype);
  */
 
 Store.prototype.set = function(name, value, strict) { //add object options
-	var prev = this.data[name];
-	//TODO: what happend if update store-object with an array and vice versa?
-	if(typeof name === 'object') return each(name, this.set, this);
-	if(prev !== value) {
-		this.data[name] = value;
-		if(!strict) this.emit('updated', name, value);
-		this.emit('change', name, value, prev);
-		this.emit('change ' + name, value, prev);
-	}
-	return this;
+  var prev = this.data[name];
+  //TODO: what happend if update store-object with an array and vice versa?
+  if(typeof name === 'object') return each(name, this.set, this);
+  if(prev !== value) {
+    this.data[name] = value;
+    if(!strict) this.emit('updated', name, value);
+    this.emit('change', name, value, prev);
+    this.emit('change ' + name, value, prev);
+  }
+  return this;
 };
 
 
@@ -72,12 +78,12 @@ Store.prototype.set = function(name, value, strict) { //add object options
  */
 
 Store.prototype.get = function(name) {
-	var formatter = this.formatters[name];
-	var value = this.data[name];
-	if(formatter) {
-		value = formatter[0].call(formatter[1], value);
-	}
-	return value;
+  var formatter = this.formatters[name];
+  var value = this.data[name];
+  if(formatter) {
+    value = formatter[0].call(formatter[1], value);
+  }
+  return value;
 };
 
 /**
@@ -89,8 +95,8 @@ Store.prototype.get = function(name) {
  */
 
 Store.prototype.has = function(name) {
-	//NOTE: I don't know if it should be public
-	return this.data.hasOwnProperty(name);
+  //NOTE: I don't know if it should be public
+  return this.data.hasOwnProperty(name);
 };
 
 
@@ -103,18 +109,18 @@ Store.prototype.has = function(name) {
  */
 
 Store.prototype.del = function(name, strict) {
-	//TODO:refactor this is ugly
-	if(this.has(name)){
-		if(this.data instanceof Array){
-			this.data.splice(name, 1);
-		} else {
-			delete this.data[name]; //NOTE: do we need to return something?
-		}
-		if(!strict) this.emit('updated', name);
-		this.emit('deleted', name, name);
-		this.emit('deleted ' + name, name);
-	}
-	return this;
+  //TODO:refactor this is ugly
+  if(this.has(name)){
+    if(this.data instanceof Array){
+      this.data.splice(name, 1);
+    } else {
+      delete this.data[name]; //NOTE: do we need to return something?
+    }
+    if(!strict) this.emit('updated', name);
+    this.emit('deleted', name, name);
+    this.emit('deleted ' + name, name);
+  }
+  return this;
 };
 
 
@@ -136,8 +142,8 @@ Store.prototype.del = function(name, strict) {
  */
 
 Store.prototype.format = function(name, callback, scope) {
-	this.formatters[name] = [callback,scope];
-	return this;
+  this.formatters[name] = [callback,scope];
+  return this;
 };
 
 
@@ -156,18 +162,18 @@ Store.prototype.format = function(name, callback, scope) {
  */
 
 Store.prototype.compute = function(name, callback) {
-	//NOTE: I want something clean instaead passing the computed 
-	//attribute in the function
-	var str = callback.toString();
-	var attrs = str.match(/this.[a-zA-Z0-9]*/g);
+  //NOTE: I want something clean instaead passing the computed 
+  //attribute in the function
+  var str = callback.toString();
+  var attrs = str.match(/this.[a-zA-Z0-9]*/g);
 
-	this.set(name, callback.call(this.data)); //TODO: refactor (may be use replace)
-	for(var l = attrs.length; l--;){
-		this.on('change ' + attrs[l].slice(5), function(){
-			this.set(name, callback.call(this.data));
-		});
-	}
-	return this;
+  this.set(name, callback.call(this.data)); //TODO: refactor (may be use replace)
+  for(var l = attrs.length; l--;){
+    this.on('change ' + attrs[l].slice(5), function(){
+      this.set(name, callback.call(this.data));
+    });
+  }
+  return this;
 };
 
 
@@ -180,29 +186,29 @@ Store.prototype.compute = function(name, callback) {
  */
 
 Store.prototype.reset = function(data, strict) {
-	var copy = clone(this.data),
-		length = data.length;
-		this.data = data;
+  var copy = clone(this.data),
+    length = data.length;
+    this.data = data;
 
-	each(copy, function(key, val){
-		if(typeof data[key] === 'undefined'){
-			if(!strict) this.emit('updated', key);
-			this.emit('deleted', key, length);
-			this.emit('deleted ' + key, length);
-		}
-	}, this);
+  each(copy, function(key, val){
+    if(typeof data[key] === 'undefined'){
+      if(!strict) this.emit('updated', key);
+      this.emit('deleted', key, length);
+      this.emit('deleted ' + key, length);
+    }
+  }, this);
 
-	//set new attributes
-	each(data, function(key, val){
-		//TODO:refactor with this.set
-		var prev = copy[key];
-		if(prev !== val) {
-			if(!strict) this.emit('updated', key, val);
-			this.emit('change', key, val, prev);
-			this.emit('change ' + key, val, prev);
-		}
-	}, this);
-	return this;
+  //set new attributes
+  each(data, function(key, val){
+    //TODO:refactor with this.set
+    var prev = copy[key];
+    if(prev !== val) {
+      if(!strict) this.emit('updated', key, val);
+      this.emit('change', key, val, prev);
+      this.emit('change ' + key, val, prev);
+    }
+  }, this);
+  return this;
 };
 
 
@@ -216,8 +222,8 @@ Store.prototype.reset = function(data, strict) {
  */
 
 Store.prototype.loop = function(cb, scope) {
-	each(this.data, cb, scope || this);
-	return this;
+  each(this.data, cb, scope || this);
+  return this;
 };
 
 
@@ -235,12 +241,12 @@ Store.prototype.loop = function(cb, scope) {
  */
 
 Store.prototype.pipe = function(store) {
-	store.set(this.data);
-	this.on('updated', function(name, val) {
-		if(val) return store.set(name, val);
-		store.del(name);
-	});
-	return this;
+  store.set(this.data);
+  this.on('updated', function(name, val) {
+    if(val) return store.set(name, val);
+    store.del(name);
+  });
+  return this;
 };
 
 /**
@@ -253,13 +259,13 @@ Store.prototype.pipe = function(store) {
  */
 
 Store.prototype.local = function(name, bool) {
-	//TODO: should we do a clear for .local()?
-	if(!bool) {
-		storage.setItem(name, this.toJSON());
-	} else {
-		this.reset(JSON.parse(storage.getItem(name)));
-	}
-	return this;
+  //TODO: should we do a clear for .local()?
+  if(!bool) {
+    storage.setItem(name, this.toJSON());
+  } else {
+    this.reset(JSON.parse(storage.getItem(name)));
+  }
+  return this;
 };
 
 
@@ -274,8 +280,8 @@ Store.prototype.local = function(name, bool) {
  */
 
 Store.prototype.use = function(fn) {
-	fn(this);
-	return this;
+  fn(this);
+  return this;
 };
 
 
@@ -286,7 +292,7 @@ Store.prototype.use = function(fn) {
  */
 
 Store.prototype.toJSON = function() {
-	return JSON.stringify(this.data);
+  return JSON.stringify(this.data);
 };
 
 //TODO: localstorage middleware like

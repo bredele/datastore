@@ -7,8 +7,8 @@
     "example": "examples"
   },
   "dependencies": {
-    "clone-bredele": "0.0.1",
-    "each-bredele": "0.0.1",
+    "bredele-clone": "^0.3.1",
+    "bredele-each": "^0.1.2",
     "component-emitter": "~1.1.2"
   },
   "devDependencies": {
@@ -17,8 +17,8 @@
   },
   "browser": {
     "emitter": "emitter-component",
-    "each": "each-bredele",
-    "clone": "clone-bredele"
+    "each": "bredele-each",
+    "clone": "bredele-clone"
   },
   "scripts": {
     "test": "zuul -- test/*.js",
