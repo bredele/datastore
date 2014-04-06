@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Datastore</title>
+  <meta name="description" content="Collection of asynchronous patterns.">
+  <meta name="keywords" content="Model, Store, Localstorage, collection">
+  <meta name="author" content="Olivier Wietrich">
+  <link rel="stylesheet" href="store.css">
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+</head>
+<body>
+	<header class="clearfix">
+	  <div class="container">
+	    <div class="intro">
+	      <a href="http://github.com/bredele/datastore" target="_blank"><h1>Datastore</h1></a>
+	      <p>A pluggable and adaptive interface to store your data on both client and server sides.<br>Made by <a href="http://github.com/bredele" target="_blank">Olivier Wietrich</a>.</p>
+	    </div>
+	  </div>
+	</header>
+	<section>
+	  <div class="container">
+	    <h1>Just what you need...</h1>
+	    <p>Datastore contains your data and all the logic surrounding it such as formatters, access control, computed properties, reset, local storage and can be easily extended with plugins (see below).</p>
+	    <hr>
+	    <p><a href="https://github.com/bredele/datastore" target="_blank" class="button">Getting started</a></p>
+	    <br>
+	    <p>
+	    	<iframe src="http://ghbtns.com/github-btn.html?user=bredele&repo=datastore&type=watch&count=true"
+	    	  allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://github.com/bredele/datastore" data-text="Check out datastore." data-via="bredeleca">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	    </p>
+	  </div>
+	</section>
+	<section>
+		<div class="container">
+			<h1>Access control</h1>
+			<p>Datastore is a single wrapper for your models and collections. No more overhead, everything is just simple...</p>
+			<div class="row clearfix">
+				<div class="column half justify">
+					<h3>Basic</h3>
+					<p>You can set a store attribute, delete or format one, update or reset the store. See <a href="https://github.com/bredele/datastore#api" target="_blank">API</a> for more information.</p>
+				</div>
+				<div class="column half justify">
+<pre style='color:#000000;background:#ffffff;'><html><body style='color:#000000; background:#ffffff; '><pre>
+<span style='color:#800000; font-weight:bold; '>var</span> model <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> Store<span style='color:#808030; '>(</span><span style='color:#800080; '>{</span>
+  github<span style='color:#800080; '>:</span> <span style='color:#A6C776; '>'bredele'</span>
+<span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+store<span style='color:#808030; '>.</span>set<span style='color:#808030; '>(</span><span style='color:#A6C776; '>'name'</span><span style='color:#808030; '>,</span> <span style='color:#A6C776; '>'olivier'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+store<span style='color:#808030; '>.</span>get<span style='color:#808030; '>(</span><span style='color:#A6C776; '>'name'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span> <span style='color:#696969; '>// => olivier</span>
+
+<span style='color:#696969; '>//update</span>
+store<span style='color:#808030; '>.</span>set<span style='color:#808030; '>(</span><span style='color:#800080; '>{</span>
+  github<span style='color:#800080; '>:</span> <span style='color:#A6C776; '>'datastore'</span><span style='color:#808030; '>,</span>
+  plugin<span style='color:#800080; '>:</span> <span style='color:#A6C776; '>'mirror'</span>
+<span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+				</div>
+		<div class="row clearfix">
+			<div class="column half justify">
+				<h3>Arrays</h3>
+				<p>An Array is an Object right? That's the main idea behind Datastore which provides the same interface to store objects and arrays.</p>
+				<br>
+			</div>
+			<div class="column half justify">
+<pre style='color:#000000;background:#ffffff;'><html><body style='color:#000000; background:#ffffff; '><pre>
+<span style='color:#800000; font-weight:bold; '>var</span> collection <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>new</span> Store<span style='color:#808030; '>(</span><span style='color:#808030; '>[</span><span style='color:#800080; '>{</span>
+  name<span style='color:#800080; '>:</span> <span style='color:#A6C776; '>'olivier'</span>
+<span style='color:#800080; '>}</span><span style='color:#808030; '>]</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+store<span style='color:#808030; '>.</span>get<span style='color:#808030; '>(</span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>name<span style='color:#800080; '>;</span> <span style='color:#696969; '>// => olivier</span>
+</pre>
+			</div>
+		</div>
+	</section>
+		<section>
+		<div class="container">
+			<h1>Observable</h1>
+			<p>Datastore is based on an Emitter and can be used to get notified when something is changing in the store...</p>
+			<div class="row clearfix">
+				<div class="column half justify">
+					<h3>Emitter</h3>
+					<p>You can listen to changes on an attribute, know when it has been added or removed.</p>
+					<br>
+					<p>Datastore is the perfect compagnon to build real time applications on both client and server sides.</p>
+				</div>
+				<div class="column half justify">
+<pre style='color:#000000;background:#ffffff;'><html><body style='color:#000000; background:#ffffff; '><pre>
+store<span style='color:#808030; '>.</span>on<span style='color:#808030; '>(</span><span style='color:#A6C776; '>'change name'</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span>value<span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#696969; '>// => olivier</span>
+<span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+store<span style='color:#808030; '>.</span>set<span style='color:#808030; '>(</span><span style='color:#A6C776; '>'name'</span><span style='color:#808030; '>,</span> <span style='color:#A6C776; '>'olivier'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+				</div>
+		<div class="row clearfix">
+			<div class="column half justify">
+				<h3>Computed properties</h3>
+				<p>Datastore allows you to define computed properties in a nice and clean way.</p>
+				<br>
+				<p>In this example, the computed property name changes everytime the properties first or last are updated.</p>
+			</div>
+			<div class="column half justify">
+<pre style='color:#000000;background:#ffffff;'><html><body style='color:#000000; background:#ffffff; '><pre>
+store<span style='color:#808030; '>.</span>compute<span style='color:#808030; '>(</span><span style='color:#A6C776; '>'name'</span><span style='color:#808030; '>,</span> <span style='color:#800000; font-weight:bold; '>function</span><span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#800080; '>{</span>
+  <span style='color:#800000; font-weight:bold; '>return</span> <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>first <span style='color:#808030; '>+</span> <span style='color:#A6C776; '>' '</span> <span style='color:#808030; '>+</span> <span style='color:#800000; font-weight:bold; '>this</span><span style='color:#808030; '>.</span>last<span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+			</div>
+		</div>
+	</section>
+			<section>
+			<div class="container">
+				<h1>Pluggable</h1>
+				<p>Most importantly, you can easily create plugins to extend a datastore or create elegant persistence solutions.</p>
+				<div class="row clearfix">
+					<div class="column half justify">
+						<h3>Mirror</h3>
+						<p>Here's an example of Datastore plugin. Mirror allows you to synchronize in a single line a store in client side and a store in server side.</p>
+						<br>
+						<p>See <a href="https://github.com/bredele/datastore#plugins" target="_blank">full list</a> of plugins.</p>
+					</div>
+					<div class="column half justify">
+<pre style='color:#000000;background:#ffffff;'><html><body style='color:#000000; background:#ffffff; '><pre>
+store<span style='color:#808030; '>.</span>use<span style='color:#808030; '>(</span>mirror<span style='color:#808030; '>(</span><span style='color:#A6C776; '>'channel'</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+
+<span style='color:#696969; '>//set attribute name in client</span>
+<span style='color:#696969; '>//and server side</span>
+store<span style='color:#808030; '>.</span>set<span style='color:#808030; '>(</span><span style='color:#A6C776; '>'name'</span><span style='color:#808030; '>,</span> <span style='color:#A6C776; '>'bredele'</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+</pre>
+					</div>
+			</div>
+		</section>
+		<section class="example footer">
+		  <p class="license">Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+		</section>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-37873466-1', 'github.com');
+		  ga('send', 'pageview');
+
+		</script>
+</body>
+</html>
