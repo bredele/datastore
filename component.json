@@ -1,8 +1,8 @@
 {
-  "name": "store",
-  "repository": "bredele/store",
+  "name": "datastore",
+  "repository": "bredele/datastore",
   "description": "store component (inspired by olives.js)",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "keywords": [],
   "dependencies": {
     "bredele/each": "*",

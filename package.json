@@ -1,6 +1,6 @@
 {
-  "name": "bredele-store",
-  "version": "0.2.0",
+  "name": "datastore",
+  "version": "1.0.0",
   "description": "Store component is a single wrapper for your data models and collections.",
   "main": "index.js",
   "directories": {
@@ -16,7 +16,7 @@
     "mocha": "~1.12.1"
   },
   "browser": {
-    "emitter": "emitter-component",
+    "emitter": "component-emitter",
     "each": "bredele-each",
     "clone": "bredele-clone"
   },

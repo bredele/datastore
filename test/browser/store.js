@@ -1,4 +1,4 @@
-var Store = require('store');
+var Store = require('datastore');
 var assert = require('assert');
 
 
