@@ -1,27 +1,27 @@
-# store
+# dastore
 
 [![Build Status](https://travis-ci.org/bredele/store.png?branch=master)](https://travis-ci.org/bredele/store)
 
-  Store component is a single wrapper for your models and collections.
+  Datastore component is a single wrapper for your models and collections.
 
-  > Some front end framework provide collections which are basically ordered sets of models (or arrays of objects) with no extra features. Store removes this overhead and helps you focus on your data instead of maintaining something useless.
+  > Some front end framework provide collections which are basically ordered sets of models (or arrays of objects) with no extra features. Datastore removes this overhead and helps you focus on your data instead of maintaining something useless.
 
-  Store contains your data and all the logic surrounding it such as formatters, access control, computed properties, reset, local storage and can be easily extended with its [middleware engine](https://github.com/bredele/store#usefn).
+  Datastore contains your data and all the logic surrounding it such as formatters, access control, computed properties, reset, local storage and can be easily extended with its [middleware engine](https://github.com/bredele/datastore#usefn).
 
 
 ## Installation
 
 component:
 
-    $ component install bredele/store
+    $ component install bredele/datastore
 
 nodejs:
 
-    $ npm install bredele-store
+    $ npm install datastore
     
 ## Browser Support
 
-Store supports all mainstream browsers from IE8+.
+Datastore supports all mainstream browsers from IE8+.
 Supports IE7 with JSON polyfill.
 
 ## API
@@ -31,7 +31,7 @@ Supports IE7 with JSON polyfill.
   Create a new store with the given `data` (Object or Array).
 
 ```js
-var Store = require('store');
+var Store = require('datastore');
 var users = new Store([{
   name : 'eric'
 },{
