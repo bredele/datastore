@@ -1,4 +1,4 @@
-# dastore
+# datastore
 
 [![Build Status](https://travis-ci.org/bredele/store.png?branch=master)](https://travis-ci.org/bredele/store)
 
