@@ -291,8 +291,8 @@ Store.prototype.use = function(fn) {
  * @api public
  */
 
-Store.prototype.toJSON = function() {
-  return JSON.stringify(this.data);
+Store.prototype.toJSON = function(replacer, space) {
+  return JSON.stringify(this.data, replacer, space);
 };
 
 //TODO: localstorage middleware like
