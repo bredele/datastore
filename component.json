@@ -2,10 +2,10 @@
   "name": "datastore",
   "repository": "bredele/datastore",
   "description": "store component (inspired by olives.js)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [],
   "dependencies": {
-    "bredele/each": "*",
+    "bredele/looping": "*",
     "bredele/clone": "*",
     "component/emitter": "*"
   },

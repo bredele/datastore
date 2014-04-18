@@ -6,7 +6,7 @@
 
 var Emitter = require('component-emitter');
 var clone = require('bredele-clone');
-var each = require('bredele-each');
+var each = require('looping');
 try {
   var storage = window.localStorage;
 
