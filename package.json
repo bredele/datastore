@@ -10,7 +10,7 @@
     "bredele-clone": "^0.3.1",
     "component-emitter": "~1.1.2",
     "looping": "^1.0.0",
-    "many": "^0.3.1"
+    "many": "^0.3.2"
   },
   "devDependencies": {
     "zuul": "~1.5.4",

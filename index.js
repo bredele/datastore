@@ -64,7 +64,6 @@ Store.prototype.set = many(function(name, value, strict) {
     this.emit('change', name, value, prev);
     this.emit('change ' + name, value, prev);
   }
-  return this;
 });
 
 
