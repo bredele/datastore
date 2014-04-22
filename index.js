@@ -7,9 +7,9 @@
 var Emitter = require('component-emitter');
 var clone = require('bredele-clone');
 var each = require('looping');
+var many = require('many');
 try {
   var storage = window.localStorage;
-
 } catch(_) {
   var storage = null;
 }
@@ -23,7 +23,9 @@ module.exports = Store;
 
 
 /**
- * Store constructor
+ * Store constructor.
+ *
+ * @param {Object} data
  * @api public
  */
 
@@ -34,14 +36,13 @@ function Store(data) {
 }
 
 
-//is an emitter
-
 Emitter(Store.prototype);
 
 
 /**
  * Set store attribute.
- * example:
+ * 
+ * Examples:
  *
  *   //set
  *   .set('name', 'bredele');
@@ -55,10 +56,8 @@ Emitter(Store.prototype);
  * @api public
  */
 
-Store.prototype.set = function(name, value, strict) { //add object options
+Store.prototype.set = many(function(name, value, strict) {
   var prev = this.data[name];
-  //TODO: what happend if update store-object with an array and vice versa?
-  if(typeof name === 'object') return each(name, this.set, this);
   if(prev !== value) {
     this.data[name] = value;
     if(!strict) this.emit('updated', name, value);
@@ -66,7 +65,7 @@ Store.prototype.set = function(name, value, strict) { //add object options
     this.emit('change ' + name, value, prev);
   }
   return this;
-};
+});
 
 
 /**
@@ -91,11 +90,10 @@ Store.prototype.get = function(name) {
  * 
  * @param {String} name
  * @return {Boolean}
- * @api private
+ * @api public
  */
 
 Store.prototype.has = function(name) {
-  //NOTE: I don't know if it should be public
   return this.data.hasOwnProperty(name);
 };
 
@@ -126,9 +124,11 @@ Store.prototype.del = function(name, strict) {
 
 /**
  * Set format middleware.
+ * 
  * Call formatter everytime a getter is called.
  * A formatter should always return a value.
- * example:
+ * 
+ * Examples:
  *
  *   .format('name', function(val) {
  *     return val.toUpperCase();
@@ -148,8 +148,9 @@ Store.prototype.format = function(name, callback, scope) {
 
 
 /**
- * Compute store attributes
- * example:
+ * Compute store attributes.
+ * 
+ * Examples:
  *
  *   .compute('name', function() {
  *     return this.firstName + ' ' + this.lastName;
@@ -271,16 +272,18 @@ Store.prototype.local = function(name, bool) {
 
 /**
  * Use middlewares to extend store.
+ * 
  * A middleware is a function with the store
  * as first argument.
  * 
  * @param  {Function} fn 
+ * @param {Any} opts
  * @return {this}
  * @api public
  */
 
-Store.prototype.use = function(fn) {
-  fn(this);
+Store.prototype.use = function(fn, opts) {
+  fn(this, opts);
   return this;
 };
 
@@ -294,5 +297,3 @@ Store.prototype.use = function(fn) {
 Store.prototype.toJSON = function(replacer, space) {
   return JSON.stringify(this.data, replacer, space);
 };
-
-//TODO: localstorage middleware like

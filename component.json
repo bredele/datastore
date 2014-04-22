@@ -1,13 +1,14 @@
 {
   "name": "datastore",
   "repository": "bredele/datastore",
-  "description": "store component (inspired by olives.js)",
+  "description": "Store component is a single wrapper for your data models and collections.",
   "version": "1.0.2",
   "keywords": [],
   "dependencies": {
     "bredele/looping": "*",
     "bredele/clone": "*",
-    "component/emitter": "*"
+    "component/emitter": "*",
+    "bredele/many": "~0.3.1"
   },
   "development": {
     "component/assert": "*"
