@@ -1,6 +1,6 @@
 {
   "name": "datastore",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Store component is a single wrapper for your data models and collections.",
   "main": "index.js",
   "directories": {
