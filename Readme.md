@@ -113,6 +113,16 @@ store.on('change', function(name, val, previous) {
 });
 ```
 
+### .loop(fn)
+
+  Loop over the store data (use **[looping](http://github.com/bredele/looping)** underneath).
+
+```js
+store.loop(function(key, value) {
+  // do something
+});
+```
+
 ### .compute(name, fn)
 
  Compute store properties into a new property.
