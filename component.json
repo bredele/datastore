@@ -5,10 +5,10 @@
   "version": "1.0.4",
   "keywords": [],
   "dependencies": {
-    "bredele/looping": "*",
     "bredele/clone": "*",
     "component/emitter": "*",
-    "bredele/many": "~0.3.2"
+    "bredele/looping": "^1.1.1",
+    "bredele/many": "~0.3.3"
   },
   "development": {
     "component/assert": "*"

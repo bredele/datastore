@@ -509,13 +509,30 @@ describe('utils', function(){
     
   });
 
-  it('should extend store with middlewares', function() {
-    var store = new Store();
-    store.use(function(obj) {
-      obj.save = function(){};
+  describe('use', function() {
+    var store;
+    beforeEach(function() {
+      store = new Store();
     });
-    assert.equal(typeof store.save, 'function');
+
+    it('should extend store with middlewares', function() {
+      store.use(function(obj) {
+        obj.save = function(){};
+      });
+      assert.equal(typeof store.save, 'function');
+    });
+
+    it('should pass arguments', function(done) {
+      store.use(function(obj, name, github) {
+        obj.save = function() {
+          if(name === 'olivier' && github === 'bredele') done();
+        };
+      }, 'olivier', 'bredele');
+      store.save();
+    });
+
   });
+
 
   it('should serialize data .toJSON()', function(){
     var store = new Store({

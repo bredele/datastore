@@ -274,15 +274,19 @@ Store.prototype.local = function(name, bool) {
  * 
  * A middleware is a function with the store
  * as first argument.
+ *
+ * Examples:
+ *
+ *   store.use(plugin, 'something');
  * 
  * @param  {Function} fn 
- * @param {Any} opts
  * @return {this}
  * @api public
  */
 
-Store.prototype.use = function(fn, opts) {
-  fn(this, opts);
+Store.prototype.use = function(fn) {
+  var args = [].slice.call(arguments, 1);
+  fn.apply(this, [this].concat(args));
   return this;
 };
 
