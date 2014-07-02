@@ -18,7 +18,11 @@ component:
 nodejs:
 
     $ npm install datastore
-    
+
+bower(berk!):
+
+    $ bower install datastore-js
+
 ## Browser Support
 
 Datastore supports all mainstream browsers from IE8+.
