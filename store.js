@@ -1,40 +1,22 @@
+
 ;(function(){
 
 /**
- * Require the given path.
+ * Require the module at `name`.
  *
- * @param {String} path
+ * @param {String} name
  * @return {Object} exports
  * @api public
  */
 
-function require(path, parent, orig) {
-  var resolved = require.resolve(path);
+function require(name) {
+  var module = require.modules[name];
+  if (!module) throw new Error('failed to require "' + name + '"');
 
-  // lookup failed
-  if (null == resolved) {
-    orig = orig || path;
-    parent = parent || 'root';
-    var err = new Error('Failed to require "' + orig + '" from "' + parent + '"');
-    err.path = orig;
-    err.parent = parent;
-    err.require = true;
-    throw err;
-  }
-
-  var module = require.modules[resolved];
-
-  // perform real require()
-  // by invoking the module's
-  // registered function
-  if (!module._resolving && !module.exports) {
-    var mod = {};
-    mod.exports = {};
-    mod.client = mod.component = true;
-    module._resolving = true;
-    module.call(this, mod.exports, require.relative(resolved), mod);
-    delete module._resolving;
-    module.exports = mod.exports;
+  if (!('exports' in module) && typeof module.definition === 'function') {
+    module.client = module.component = true;
+    module.definition.call(this, module.exports = {}, module);
+    delete module.definition;
   }
 
   return module.exports;
@@ -47,160 +29,75 @@ function require(path, parent, orig) {
 require.modules = {};
 
 /**
- * Registered aliases.
- */
-
-require.aliases = {};
-
-/**
- * Resolve `path`.
+ * Register module at `name` with callback `definition`.
  *
- * Lookup:
- *
- *   - PATH/index.js
- *   - PATH.js
- *   - PATH
- *
- * @param {String} path
- * @return {String} path or null
- * @api private
- */
-
-require.resolve = function(path) {
-  if (path.charAt(0) === '/') path = path.slice(1);
-
-  var paths = [
-    path,
-    path + '.js',
-    path + '.json',
-    path + '/index.js',
-    path + '/index.json'
-  ];
-
-  for (var i = 0; i < paths.length; i++) {
-    var path = paths[i];
-    if (require.modules.hasOwnProperty(path)) return path;
-    if (require.aliases.hasOwnProperty(path)) return require.aliases[path];
-  }
-};
-
-/**
- * Normalize `path` relative to the current path.
- *
- * @param {String} curr
- * @param {String} path
- * @return {String}
- * @api private
- */
-
-require.normalize = function(curr, path) {
-  var segs = [];
-
-  if ('.' != path.charAt(0)) return path;
-
-  curr = curr.split('/');
-  path = path.split('/');
-
-  for (var i = 0; i < path.length; ++i) {
-    if ('..' == path[i]) {
-      curr.pop();
-    } else if ('.' != path[i] && '' != path[i]) {
-      segs.push(path[i]);
-    }
-  }
-
-  return curr.concat(segs).join('/');
-};
-
-/**
- * Register module at `path` with callback `definition`.
- *
- * @param {String} path
+ * @param {String} name
  * @param {Function} definition
  * @api private
  */
 
-require.register = function(path, definition) {
-  require.modules[path] = definition;
+require.register = function (name, definition) {
+  require.modules[name] = {
+    definition: definition
+  };
 };
 
 /**
- * Alias a module definition.
+ * Define a module's exports immediately with `exports`.
  *
- * @param {String} from
- * @param {String} to
+ * @param {String} name
+ * @param {Generic} exports
  * @api private
  */
 
-require.alias = function(from, to) {
-  if (!require.modules.hasOwnProperty(from)) {
-    throw new Error('Failed to alias "' + from + '", it does not exist');
+require.define = function (name, exports) {
+  require.modules[name] = {
+    exports: exports
+  };
+};
+require.register("bredele~clone@master", function (exports, module) {
+
+/**
+ * Expose 'clone'
+ * @param  {Object} obj 
+ * @api public
+ */
+
+module.exports = function(obj) {
+  var cp = null;
+  if(obj instanceof Array) {
+    cp = obj.slice(0);
+  } else {
+    //hasOwnProperty doesn't work with Object.create
+    // cp = Object.create ? Object.create(obj) : clone(obj);
+    cp = clone(obj);
   }
-  require.aliases[to] = from;
+  return cp;
 };
 
+
 /**
- * Return a require function relative to the `parent` path.
- *
- * @param {String} parent
- * @return {Function}
+ * Clone object.
+ * @param  {Object} obj 
  * @api private
  */
 
-require.relative = function(parent) {
-  var p = require.normalize(parent, '..');
-
-  /**
-   * lastIndexOf helper.
-   */
-
-  function lastIndexOf(arr, obj) {
-    var i = arr.length;
-    while (i--) {
-      if (arr[i] === obj) return i;
+function clone(obj){
+  if(typeof obj === 'object') {
+    var copy = {};
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        copy[key] = clone(obj[key]);
+      }
     }
-    return -1;
+    return copy;
   }
+  return obj;
+}
 
-  /**
-   * The relative require() itself.
-   */
+});
 
-  function localRequire(path) {
-    var resolved = localRequire.resolve(path);
-    return require(resolved, parent, path);
-  }
-
-  /**
-   * Resolve relative to the parent.
-   */
-
-  localRequire.resolve = function(path) {
-    var c = path.charAt(0);
-    if ('/' == c) return path.slice(1);
-    if ('.' == c) return require.normalize(p, path);
-
-    // resolve deps by returning
-    // the dep in the nearest "deps"
-    // directory
-    var segs = parent.split('/');
-    var i = lastIndexOf(segs, 'deps') + 1;
-    if (!i) i = 0;
-    path = segs.slice(0, i + 1).join('/') + '/deps/' + path;
-    return path;
-  };
-
-  /**
-   * Check if module is defined at `path`.
-   */
-
-  localRequire.exists = function(path) {
-    return require.modules.hasOwnProperty(localRequire.resolve(path));
-  };
-
-  return localRequire;
-};
-require.register("component-emitter/index.js", function(exports, require, module){
+require.register("component~emitter@1.1.2", function (exports, module) {
 
 /**
  * Expose `Emitter`.
@@ -367,13 +264,15 @@ Emitter.prototype.hasListeners = function(event){
 };
 
 });
-require.register("bredele-each/index.js", function(exports, require, module){
+
+require.register("bredele~looping@1.1.1", function (exports, module) {
 
 /**
- * Expose 'each'
+ * Expose 'looping'
  */
 
 module.exports = function(obj, fn, scope){
+  scope = scope || this;
   if( obj instanceof Array) {
     array(obj, fn, scope);
   } else if(typeof obj === 'object') {
@@ -412,47 +311,70 @@ function array(obj, fn, scope){
     fn.call(scope, i, obj[i]);
   }
 }
+
 });
-require.register("bredele-clone/index.js", function(exports, require, module){
+
+require.register("bredele~many@0.3.3", function (exports, module) {
 
 /**
- * Expose 'clone'
- * @param  {Object} obj 
- * @api public
- */
-
-module.exports = function(obj) {
-  if(obj instanceof Array) {
-    return obj.slice(0);
-  }
-  return clone(obj);
-};
-
-
-/**
- * Clone object.
- * @param  {Object} obj 
+ * Module dependencies.
  * @api private
  */
 
-function clone(obj){
-  if(typeof obj === 'object') {
-    var copy = {};
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        copy[key] = clone(obj[key]);
-      }
-    }
-    return copy;
-  }
-  return obj;
-}
+var loop = require("bredele~looping@1.1.1");
+
+
+/**
+ * Expose many.
+ *
+ * Only works when the first argument of a function
+ * is a string.
+ *
+ * Examples:
+ *
+ *   var fn = many(function(name, data) {
+ *     // do something
+ *   });
+ *   
+ *   fn('bar', {});
+ *   fn({
+ *     'foo' : {},
+ *     'beep' : {}
+ *   });
+ *
+ * @param {Function}
+ * @return {Function} 
+ * @api public
+ */
+
+module.exports = function(fn) {
+	var many = function(str) {
+		if(typeof str === 'object') loop(str, many, this);
+		else fn.apply(this, arguments);
+		return this;
+	};
+	return many;
+};
+
 });
-require.register("store/index.js", function(exports, require, module){
-var Emitter = require('emitter'),
-    clone = require('clone'),
-    each = require('each'),
-    storage = window.localStorage;
+
+require.register("datastore", function (exports, module) {
+
+/**
+ * Module dependencies.
+ * @api private
+ */
+
+var Emitter = require("component~emitter@1.1.2");
+var clone = require("bredele~clone@master");
+var each = require("bredele~looping@1.1.1");
+var many = require("bredele~many@0.3.3");
+try {
+  var storage = window.localStorage;
+} catch(_) {
+  var storage = null;
+}
+
 
 /**
  * Expose 'Store'
@@ -462,7 +384,9 @@ module.exports = Store;
 
 
 /**
- * Store constructor
+ * Store constructor.
+ *
+ * @param {Object} data
  * @api public
  */
 
@@ -475,27 +399,40 @@ function Store(data) {
 
 Emitter(Store.prototype);
 
+
 /**
  * Set store attribute.
+ * 
+ * Examples:
+ *
+ *   //set
+ *   .set('name', 'bredele');
+ *   //update
+ *   .set({
+ *     name: 'bredele'
+ *   });
+ *   
  * @param {String} name
  * @param {Everything} value
  * @api public
  */
 
-Store.prototype.set = function(name, value, plugin) { //add object options
+Store.prototype.set = many(function(name, value, strict) {
   var prev = this.data[name];
   if(prev !== value) {
     this.data[name] = value;
+    if(!strict) this.emit('updated', name, value);
     this.emit('change', name, value, prev);
     this.emit('change ' + name, value, prev);
   }
-};
+});
 
 
 /**
  * Get store attribute.
+ * 
  * @param {String} name
- * @return {Everything}
+ * @return {this}
  * @api public
  */
 
@@ -510,25 +447,26 @@ Store.prototype.get = function(name) {
 
 /**
  * Get store attribute.
+ * 
  * @param {String} name
- * @return {Everything}
- * @api private
+ * @return {Boolean}
+ * @api public
  */
 
 Store.prototype.has = function(name) {
-  //NOTE: I don't know if it should be public
   return this.data.hasOwnProperty(name);
 };
 
 
 /**
  * Delete store attribute.
+ * 
  * @param {String} name
- * @return {Everything}
+ * @return {this}
  * @api public
  */
 
-Store.prototype.del = function(name) {
+Store.prototype.del = function(name, strict) {
   //TODO:refactor this is ugly
   if(this.has(name)){
     if(this.data instanceof Array){
@@ -536,20 +474,30 @@ Store.prototype.del = function(name) {
     } else {
       delete this.data[name]; //NOTE: do we need to return something?
     }
+    if(!strict) this.emit('updated', name);
     this.emit('deleted', name, name);
     this.emit('deleted ' + name, name);
   }
+  return this;
 };
 
 
 /**
  * Set format middleware.
+ * 
  * Call formatter everytime a getter is called.
  * A formatter should always return a value.
+ * 
+ * Examples:
+ *
+ *   .format('name', function(val) {
+ *     return val.toUpperCase();
+ *   });
+ *   
  * @param {String} name
  * @param {Function} callback
  * @param {Object} scope
- * @return this
+ * @return {this}
  * @api public
  */
 
@@ -560,9 +508,17 @@ Store.prototype.format = function(name, callback, scope) {
 
 
 /**
- * Compute store attributes
+ * Compute store attributes.
+ * 
+ * Examples:
+ *
+ *   .compute('name', function() {
+ *     return this.firstName + ' ' + this.lastName;
+ *   });
+ *   
  * @param  {String} name
- * @return {Function} callback                
+ * @param {Function} callback
+ * @return {this}                
  * @api public
  */
 
@@ -578,59 +534,88 @@ Store.prototype.compute = function(name, callback) {
       this.set(name, callback.call(this.data));
     });
   }
+  return this;
 };
 
 
 /**
  * Reset store
+ * 
  * @param  {Object} data 
+ * @return {this} 
  * @api public
  */
 
-Store.prototype.reset = function(data) {
+Store.prototype.reset = function(data, strict) {
   var copy = clone(this.data),
-      length = data.length;
-  this.data = data;
+    length = data.length;
+    this.data = data;
 
-
-    //remove undefined attributes
-    //TODO: we don't need to go through each items for array (only difference)
-    each(copy, function(key, val){
-      if(typeof data[key] === 'undefined'){
-        this.emit('deleted', key, length);
-        this.emit('deleted ' + key, length);
-      }
-    }, this);
+  each(copy, function(key, val){
+    if(typeof data[key] === 'undefined'){
+      if(!strict) this.emit('updated', key);
+      this.emit('deleted', key, length);
+      this.emit('deleted ' + key, length);
+    }
+  }, this);
 
   //set new attributes
   each(data, function(key, val){
     //TODO:refactor with this.set
     var prev = copy[key];
     if(prev !== val) {
+      if(!strict) this.emit('updated', key, val);
       this.emit('change', key, val, prev);
       this.emit('change ' + key, val, prev);
     }
   }, this);
+  return this;
 };
 
 
 /**
  * Loop through store data.
+ * 
  * @param  {Function} cb   
  * @param  {[type]}   scope 
+ * @return {this} 
  * @api public
  */
 
 Store.prototype.loop = function(cb, scope) {
   each(this.data, cb, scope || this);
+  return this;
 };
 
+
+/**
+ * Pipe two stores (merge and listen data).
+ * example:
+ *
+ *   .pipe(store);
+ *   
+ * note: pipe only stores of same type
+ *
+ * @param {Store} store 
+ * @return {this} 
+ * @api public
+ */
+
+Store.prototype.pipe = function(store) {
+  store.set(this.data);
+  this.on('updated', function(name, val) {
+    if(val) return store.set(name, val);
+    store.del(name);
+  });
+  return this;
+};
 
 /**
  * Synchronize with local storage.
  * 
  * @param  {String} name 
  * @param  {Boolean} bool save in localstore
+ * @return {this} 
  * @api public
  */
 
@@ -641,14 +626,19 @@ Store.prototype.local = function(name, bool) {
   } else {
     this.reset(JSON.parse(storage.getItem(name)));
   }
-  //TODO: should we return this?
+  return this;
 };
 
 
 /**
  * Use middlewares to extend store.
+ * 
  * A middleware is a function with the store
  * as first argument.
+ *
+ * Examples:
+ *
+ *   store.use(plugin, 'something');
  * 
  * @param  {Function} fn 
  * @return {this}
@@ -656,7 +646,8 @@ Store.prototype.local = function(name, bool) {
  */
 
 Store.prototype.use = function(fn) {
-  fn(this);
+  var args = [].slice.call(arguments, 1);
+  fn.apply(this, [this].concat(args));
   return this;
 };
 
@@ -667,30 +658,17 @@ Store.prototype.use = function(fn) {
  * @api public
  */
 
-Store.prototype.toJSON = function() {
-  return JSON.stringify(this.data);
+Store.prototype.toJSON = function(replacer, space) {
+  return JSON.stringify(this.data, replacer, space);
 };
 
-//TODO: localstorage middleware like
 });
 
-
-
-require.alias("component-emitter/index.js", "store/deps/emitter/index.js");
-require.alias("component-emitter/index.js", "emitter/index.js");
-
-require.alias("bredele-each/index.js", "store/deps/each/index.js");
-require.alias("bredele-each/index.js", "store/deps/each/index.js");
-require.alias("bredele-each/index.js", "each/index.js");
-require.alias("bredele-each/index.js", "bredele-each/index.js");
-require.alias("bredele-clone/index.js", "store/deps/clone/index.js");
-require.alias("bredele-clone/index.js", "store/deps/clone/index.js");
-require.alias("bredele-clone/index.js", "clone/index.js");
-require.alias("bredele-clone/index.js", "bredele-clone/index.js");
-require.alias("store/index.js", "store/index.js");if (typeof exports == "object") {
-  module.exports = require("store");
+if (typeof exports == "object") {
+  module.exports = require("datastore");
 } else if (typeof define == "function" && define.amd) {
-  define(function(){ return require("store"); });
+  define([], function(){ return require("datastore"); });
 } else {
-  this["store"] = require("store");
-}})();
+  this["store"] = require("datastore");
+}
+})()
