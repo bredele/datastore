@@ -40,6 +40,16 @@ see [live](http://requirebin.com/?gist=9b7761a10d61609018ff) example.
 
 ### Plugins
 
+Store is composable and can be extended with plugins:
+
+  - [mirror](http://github.com/bredele/store-mirror)  real time sync with a datastore in server side.
+  - [local store](http://github.com/bredele/store-local) local storage layer
+  - [cookie](http://github.com/bredele/store-cookie) cookie storage layer
+  - [session](http://github.com/bredele/store-session) session storage layer
+  - [path](htthttp://github.com/bredele/store-mirrorp://github.com/bredele/store-path) access nested properties of a store
+  - [supplant](http://github.com/bredele/store-supplant) template engine on both client/server side
+  - [queue](http://github.com/bredele/emitter-queue) queue store events
+
 ## Installation
 
 component:
