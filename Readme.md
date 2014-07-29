@@ -251,51 +251,8 @@ store.use(function(obj) {
 store.save();
 ```
 
-See [plugins](#plugins)
+See wiki for some [examples](https://github.com/bredele/datastore/wiki/Plugins).
 
-## Plugins
-
-Here's a list of availaible plugins:
-
-  - [mirror](http://github.com/bredele/store-mirror)
-
-to get real time updates from a store in server side.
-
-```js
-  store.use(mirror('mychannel'));
-  store.set('hello', 'world');
-```
-  
-  - [path](http://github.com/bredele/store-path)
-
-to access nested data easily:
-
-```js
-  store.path('country.canada'); //get
-  store.path('country.canada.city', 'calgary');//set
-```
-
-  - [supplant](http://github.com/bredele/store-supplant)
-
-to create template engines on both client/server sides:
-
-```js
-  store.filter('upper', function(str) {
-    return str.toUpperCase();
-  });
-  store.supplant('my name is {{name} | upper}');
-```
-
-  - [queue](http://github.com/bredele/emitter-queue)
-
-to queue events.
-
-```js
-  store.queue('hello', 'world');
-  store.on('hello', function(val) {
-    //world
-  });
-```
 
 ## License
 
