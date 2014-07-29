@@ -28,6 +28,28 @@ bower(berk!):
 Datastore supports all mainstream browsers from IE8+.
 Supports IE7 with JSON polyfill.
 
+
+## Usage
+
+### Basic
+
+```js
+var store = new Store();
+store.set('name', 'olivier');
+store.get('name');
+// => olivier
+
+store.compute('github', function() {
+  return 'http://github.com/' + this.name;
+});
+store.set('name', 'bredele');
+store.get('github');
+// => http://github.com/bredele
+```
+
+<!-- ### Plugins -->
+
+
 ## API
 
 ### store(data)
