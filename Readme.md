@@ -41,10 +41,16 @@ store.set('name', 'olivier');
 store.get('name');
 // => olivier
 
+store.on('change github', function(val) {
+  console.log('woohoo');
+});
+
 store.compute('github', function() {
   return 'http://github.com/' + this.name;
 });
+
 store.set('name', 'bredele');
+// => woohoo
 store.get('github');
 // => http://github.com/bredele
 ```
