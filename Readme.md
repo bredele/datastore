@@ -35,7 +35,7 @@ store.get('github');
 // => http://github.com/bredele
 ```
 
-see [live](http://requirebin.com/?gist=9b7761a10d61609018ff) example.
+<a href="http://requirebin.com/?gist=9b7761a10d61609018ff" target="_blank"><img src="https://runnable.com/external/styles/assets/runnablebtn.png" style="width:67px;height:25px;"></a>
 
 
 ### Plugins
