@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/bredele/store.png?branch=master)](https://travis-ci.org/bredele/store)
 
-  Datastore is an observable data layer for both client and server side with a pluggable interface to access local/cookie/session storage, redis database and way more.
+  Datastore is an observable data layer for both client and server side with a pluggable interface to synchronise your data in real time, access local/cookie/session storage, redis database and way more.
   
   
 <!-- 
