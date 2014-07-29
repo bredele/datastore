@@ -9,26 +9,6 @@
   Datastore contains your data and all the logic surrounding it such as formatters, access control, computed properties, reset, local storage and can be easily extended with its [middleware engine](https://github.com/bredele/datastore#usefn).
 
 
-## Installation
-
-component:
-
-    $ component install bredele/datastore
-
-nodejs:
-
-    $ npm install datastore
-
-bower(berk!):
-
-    $ bower install datastore-js
-
-## Browser Support
-
-Datastore supports all mainstream browsers from IE8+.
-Supports IE7 with JSON polyfill.
-
-
 ## Usage
 
 ### Basic
@@ -55,7 +35,26 @@ store.get('github');
 // => http://github.com/bredele
 ```
 
- ### Plugins
+### Plugins
+
+## Installation
+
+component:
+
+    $ component install bredele/datastore
+
+nodejs:
+
+    $ npm install datastore
+
+bower(berk!):
+
+    $ bower install datastore-js
+
+## Browser Support
+
+Datastore supports all mainstream browsers from IE8+.
+Supports IE7 with JSON polyfill.
 
 
 ## API
