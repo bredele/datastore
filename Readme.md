@@ -55,7 +55,7 @@ store.get('github');
 // => http://github.com/bredele
 ```
 
-<!-- ### Plugins -->
+ ### Plugins
 
 
 ## API
