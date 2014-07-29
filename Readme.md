@@ -58,6 +58,9 @@ Here's a list of available plugins:
   - [path](http://github.com/bredele/store-mirrorp://github.com/bredele/store-path) access nested properties of a store
   - [supplant](http://github.com/bredele/store-supplant) template engine on both client/server side
   - [queue](http://github.com/bredele/emitter-queue) queue store events
+  - [toggle](http://github.com/bredele/store-toggle) enable/disable store property
+  - [redis](http://github.com/bredele/emitter-redis) redis store layer
+
 
 ## Installation
 
