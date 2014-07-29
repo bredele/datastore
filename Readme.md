@@ -33,6 +33,8 @@ Supports IE7 with JSON polyfill.
 
 ### Basic
 
+  Store is an observable <!-- add emitter doc --> layer on top of your data.
+
 ```js
 var store = new Store();
 store.set('name', 'olivier');
