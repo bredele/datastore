@@ -2,12 +2,17 @@
 
 [![Build Status](https://travis-ci.org/bredele/store.png?branch=master)](https://travis-ci.org/bredele/store)
 
+  Datastore is an observable data layer for both client and server side with a pluggable interface to access local/cookie/session storage, redis database and way more.
+  
+  
+<!-- 
   Datastore component is a single wrapper for your models and collections.
 
   > Some front end framework provide collections which are basically ordered sets of models (or arrays of objects) with no extra features. Datastore removes this overhead and helps you focus on your data instead of maintaining something useless.
 
-  Datastore contains your data and all the logic surrounding it such as formatters, access control, computed properties, reset, local storage and can be easily extended with its [middleware engine](https://github.com/bredele/datastore#usefn).
 
+  Datastore contains your data and all the logic surrounding it such as formatters, access control, computed properties, reset, local storage and can be easily extended with its [middleware engine](https://github.com/bredele/datastore#usefn).
+-->
 
 ## Usage
 
