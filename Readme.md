@@ -35,7 +35,7 @@ store.get('github');
 // => http://github.com/bredele
 ```
 
-see [live](http://requirebin.com/?gist=9b7761a10d61609018ff") example.
+see [live](http://requirebin.com/?gist=9b7761a10d61609018ff) example.
 
 
 ### Plugins
