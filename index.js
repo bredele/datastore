@@ -106,7 +106,7 @@ Store.prototype.del = function(name, strict) {
     if(this.data instanceof Array){
       this.data.splice(name, 1);
     } else {
-      delete this.data[name]; //NOTE: do we need to return something?
+      delete this.data[name];
     }
     if(!strict) this.emit('updated', name);
     this.emit('deleted', name, name);
@@ -157,8 +157,6 @@ Store.prototype.format = function(name, callback, scope) {
  */
 
 Store.prototype.compute = function(name, callback) {
-  //NOTE: I want something clean instaead passing the computed 
-  //attribute in the function
   var str = callback.toString();
   var attrs = str.match(/this.[a-zA-Z0-9]*/g);
 
