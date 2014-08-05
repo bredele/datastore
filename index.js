@@ -8,11 +8,6 @@ var Emitter = require('component-emitter');
 var clone = require('bredele-clone');
 var each = require('looping');
 var many = require('many');
-try {
-  var storage = window.localStorage;
-} catch(_) {
-  var storage = null;
-}
 
 
 /**
@@ -156,7 +151,7 @@ Store.prototype.format = function(name, callback, scope) {
  *   });
  *   
  * @param  {String} name
- * @param {Function} callback
+ * @param  {Function} callback
  * @return {this}                
  * @api public
  */
@@ -186,9 +181,9 @@ Store.prototype.compute = function(name, callback) {
  */
 
 Store.prototype.reset = function(data, strict) {
-  var copy = clone(this.data),
-    length = data.length;
-    this.data = data;
+  var copy = clone(this.data);
+  var length = data.length;
+  this.data = data;
 
   each(copy, function(key, val){
     if(typeof data[key] === 'undefined'){
@@ -216,7 +211,7 @@ Store.prototype.reset = function(data, strict) {
  * Loop through store data.
  * 
  * @param  {Function} cb   
- * @param  {[type]}   scope 
+ * @param  {Object}   scope 
  * @return {this} 
  * @api public
  */
@@ -246,25 +241,6 @@ Store.prototype.pipe = function(store) {
     if(val) return store.set(name, val);
     store.del(name);
   });
-  return this;
-};
-
-/**
- * Synchronize with local storage.
- * 
- * @param  {String} name 
- * @param  {Boolean} bool save in localstore
- * @return {this} 
- * @api public
- */
-
-Store.prototype.local = function(name, bool) {
-  //TODO: should we do a clear for .local()?
-  if(!bool) {
-    storage.setItem(name, this.toJSON());
-  } else {
-    this.reset(JSON.parse(storage.getItem(name)));
-  }
   return this;
 };
 
