@@ -13,7 +13,7 @@
     "bredele/shallow": "^1.0.0",
     "component/emitter": "^1.1.3",
     "bredele/looping": "^1.1.1",
-    "bredele/many": "^1.0.0"
+    "bredele/many": "^1.0.1"
   },
   "development": {
     "component/assert": "*"
