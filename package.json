@@ -7,9 +7,9 @@
     "example": "examples"
   },
   "dependencies": {
-    "bredele-clone": "^0.3.1",
-    "component-emitter": "~1.1.2",
-    "many": "^0.3.3",
+    "many": "^1.0.0",
+    "component-emitter": "^1.1.3",
+    "shallow": "^1.0.0",
     "looping": "^1.1.1"
   },
   "devDependencies": {

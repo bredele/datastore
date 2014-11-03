@@ -5,7 +5,7 @@
  */
 
 var Emitter = require('component-emitter');
-var clone = require('bredele-clone');
+var clone = require('shallow');
 var each = require('looping');
 var many = require('many');
 
@@ -78,6 +78,7 @@ Store.prototype.get = function(name) {
   }
   return value;
 };
+
 
 /**
  * Get store attribute.

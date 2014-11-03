@@ -10,10 +10,10 @@
     "plugin"
   ],
   "dependencies": {
-    "bredele/clone": "*",
-    "component/emitter": "*",
+    "bredele/shallow": "^1.0.0",
+    "component/emitter": "^1.1.3",
     "bredele/looping": "^1.1.1",
-    "bredele/many": "~0.3.3"
+    "bredele/many": "^1.0.0"
   },
   "development": {
     "component/assert": "*"

@@ -1,5 +1,10 @@
-var Store = require('..'),
-    assert = require('assert');
+
+/**
+ * Test dependencies.
+ */
+
+var Store = require('..');
+var assert = require('assert');
 
 
 describe('General', function(){
