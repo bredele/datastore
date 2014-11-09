@@ -2,7 +2,7 @@
   "name": "datastore",
   "repository": "bredele/datastore",
   "description": "Store component is a single wrapper for your data models and collections.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "keywords": [
     "model",
     "store",
@@ -12,8 +12,8 @@
   "dependencies": {
     "bredele/shallow": "^1.0.0",
     "component/emitter": "^1.1.3",
-    "bredele/looping": "^1.1.1",
-    "bredele/many": "^1.0.1"
+    "bredele/looping": "^1.1.2",
+    "bredele/many": "^1.0.2"
   },
   "development": {
     "component/assert": "*"
