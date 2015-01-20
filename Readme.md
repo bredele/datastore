@@ -1,5 +1,7 @@
 # datastore
 
+> Data structures are central to programming. If you've chose the right data structures and organized things well, the code will almost always be self-evident.
+
 [![Build Status](https://travis-ci.org/bredele/datastore.png?branch=master)](https://travis-ci.org/bredele/store)
 
   Datastore is an observable data layer for both client and server side with a pluggable interface to synchronize your data in real time, access local/cookie/session storage, redis database and way more.
