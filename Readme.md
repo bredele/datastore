@@ -60,7 +60,7 @@ Here's a list of available plugins:
 
   - [mirror](http://github.com/bredele/store-mirror)  real time sync with a datastore in server side.
   - [local store](http://github.com/bredele/store-local) local storage layer
-  - [path](http://github.com/bredele/store-mirrorp://github.com/bredele/store-path) access nested properties of a store
+  - [path](http://github.com/bredele/store-path) access nested properties of a store
   - [supplant](http://github.com/bredele/store-supplant) template engine on both client/server side
   - [queue](http://github.com/bredele/emitter-queue) queue store events
   - [toggle](http://github.com/bredele/store-toggle) enable/disable store property
