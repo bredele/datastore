@@ -15,7 +15,10 @@ module.exports = function(data) {
   }
 
   store.set = function(key, value) {
-    data[key] = value
+    if(value) data[key] = value
+    else return function(val) {
+      return store.set(key, val)
+    }
     return store
   }
 
