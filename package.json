@@ -3,14 +3,14 @@
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "tape": "^4.6.2",
     "zuul": "~1.5.4"
   },
   "scripts": {
-    "test": "zuul -- test/*.js",
-    "test:local": "zuul --local -- test/*.js"
+    "test": "browserify test/*.js | tape-run",
+    "test:sauce": "zuul -- test/*.js"
   },
   "repository": {
     "type": "git",
