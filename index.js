@@ -1,1 +1,5 @@
 
+
+module.exports = function(data) {
+
+}
