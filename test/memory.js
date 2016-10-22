@@ -14,3 +14,11 @@ test('should initialize data', assert => {
 
   assert.equal(data.get('name'), 'olivier')
 })
+
+
+test('should set data', assert => {
+  assert.plan(1)
+  var data = store()
+  data.set('name', 'olivier')
+  assert.equal(data.get('name'), 'olivier')
+})
