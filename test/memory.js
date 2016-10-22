@@ -32,14 +32,16 @@ test('should curry setter', assert => {
   assert.equal(data.get('label'), 'hello')
 })
 
+
 test('should compute a store property', assert => {
   assert.plan(1)
   var data = store({
     label: 'hello'
   })
 
-  data.set('welcome', () => {
+  // shorthand this is not store
+  data.set('welcome', function() {
     return this.label + ' world!'
   })
-  assert.equal(data.get('label'), 'hello worl!')
+  assert.equal(data.get('welcome'), 'hello world!')
 })

@@ -15,8 +15,10 @@ module.exports = function(data) {
   }
 
   store.set = function(key, value) {
-    if(value != null) data[key] = value
-    else return function(val) {
+    if(value != null) {
+      if(typeof value == 'function') value = value.call(data)
+      data[key] = value
+    } else return function(val) {
       return store.set(key, val)
     }
     return store
