@@ -1,25 +1,16 @@
 {
   "name": "datastore",
-  "version": "1.1.1",
-  "description": "Store component is a single wrapper for your data models and collections.",
+  "version": "2.0.0",
+  "description": "",
   "main": "index.js",
-  "directories": {
-    "example": "examples"
-  },
   "dependencies": {
-    "many": "^1.0.2",
-    "component-emitter": "^1.1.3",
-    "shallow": "^1.0.0",
-    "looping": "^1.1.2"
   },
   "devDependencies": {
-    "zuul": "~1.5.4",
-    "mocha": "~1.12.1"
+    "zuul": "~1.5.4"
   },
   "scripts": {
     "test": "zuul -- test/*.js",
-    "test-local": "zuul --local -- test/*.js",
-    "nyan": "mocha --reporter nyan"
+    "test:local": "zuul --local -- test/*.js"
   },
   "repository": {
     "type": "git",
