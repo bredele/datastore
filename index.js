@@ -3,17 +3,20 @@
  */
 
 var promise = require('bluff')
+var memory = require('./lib/memory')
 
 
 /**
  *
  */
 
-module.exports = function(data, adapter) {
+module.exports = function(data) {
 
   data = data || {}
 
   var store = {}
+
+  var adapter = memory(data)
 
 
   /**
@@ -38,15 +41,10 @@ module.exports = function(data, adapter) {
    */
 
   store.set = function(key, value) {
-    return promise(function(resolve, reject) {
-      var set = function(key, value) {
-        data[key] = typeof value == 'function' ? value.call(data) : value
-        resolve(value)
-      }
-      if(value != null) set(key, value)
-      else return function(val) {
-        set(key, val)
-      }
+    return promise(function(resolve) {
+        adapter.set(function(key, entry) {
+          resolve(entry)
+        }, key, value)
     })
   }
 
