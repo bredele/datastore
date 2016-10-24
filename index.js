@@ -41,11 +41,14 @@ module.exports = function(data) {
    */
 
   store.set = function(key, value) {
-    return promise(function(resolve) {
-        adapter.set(function(key, entry) {
-          resolve(entry)
-        }, key, value)
-    })
+    var cb = function(val) {
+      return promise(function(resolve) {
+          adapter.set(function(key, entry) {
+            resolve(entry)
+          }, key, val)
+      })
+    }
+    return value == null ? cb : cb(value)
   }
 
 
