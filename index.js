@@ -39,10 +39,13 @@ module.exports = function(data, adapter) {
 
   store.set = function(key, value) {
     return promise(function(resolve, reject) {
-      if(value != null) data[key] = typeof value == 'function' ? value.call(data) : value
+      var set = function(key, value) {
+        data[key] = typeof value == 'function' ? value.call(data) : value
+        resolve(value)
+      }
+      if(value != null) set(key, value)
       else return function(val) {
-        // we should create set function outside
-        return store.set(key, val)
+        set(key, val)
       }
     })
   }

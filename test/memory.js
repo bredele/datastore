@@ -28,7 +28,7 @@ test('should set store entry and return a promise', assert => {
   assert.equal(typeof promise.then, 'function')
 })
 
-// 
+
 // test('should curry setter', assert => {
 //   assert.plan(1)
 //   var data = store()
