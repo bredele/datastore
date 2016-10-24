@@ -1,3 +1,8 @@
+/**
+ * Dependencies.
+ */
+
+var promise = require('bluff')
 
 
 /**
@@ -20,6 +25,10 @@ module.exports = function(data) {
       return store.set(key, val)
     }
     return store
+  }
+
+  store.del = function(key) {
+    delete data[key]
   }
 
   return store

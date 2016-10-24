@@ -45,3 +45,12 @@ test('should compute a store entry', assert => {
   })
   assert.equal(data.get('welcome'), 'hello world!')
 })
+
+test('should delete a store entry', assert => {
+  assert.plan(1)
+  var data = store({
+    label: 'hello'
+  })
+  data.del('label')
+  assert.equal(data.get('label'), undefined)
+})
