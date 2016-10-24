@@ -3,6 +3,7 @@
   > [![Build Status](https://travis-ci.org/bredele/datastore.svg?branch=master)](https://travis-ci.org/bredele/datastore)
   [![NPM](https://img.shields.io/npm/v/datastore.svg)](https://www.npmjs.com/package/datastore)
   [![Downloads](https://img.shields.io/npm/dm/datastore.svg)](http://npm-stat.com/charts.html?package=datastore)
+  [![pledge](https://bredele.github.io/contributing-guide/community-pledge.svg)](https://github.com/bredele/contributing-guide/blob/master/community.md)
 
 Datastore is a bloat free interface for data store and database access.
 

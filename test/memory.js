@@ -16,7 +16,7 @@ test('should initialize data', assert => {
 })
 
 
-test('should set data', assert => {
+test('should set store entry', assert => {
   assert.plan(1)
   var data = store()
   data.set('label', 'hello')
@@ -33,7 +33,7 @@ test('should curry setter', assert => {
 })
 
 
-test('should compute a store property', assert => {
+test('should compute a store entry', assert => {
   assert.plan(1)
   var data = store({
     label: 'hello'
