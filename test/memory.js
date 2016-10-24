@@ -11,10 +11,8 @@ test('should initialize data', assert => {
   var data = store({
     label: 'hello'
   })
-
   assert.equal(data.get('label'), 'hello')
 })
-
 
 test('should set store entry', assert => {
   assert.plan(1)
@@ -23,14 +21,21 @@ test('should set store entry', assert => {
   assert.equal(data.get('label'), 'hello')
 })
 
-
-test('should curry setter', assert => {
+test('should set store entry and return a promise', assert => {
   assert.plan(1)
   var data = store()
-  var label = data.set('label')
-  label('hello')
-  assert.equal(data.get('label'), 'hello')
+  var promise = data.set('label', 'hello')
+  assert.equal(typeof promise.then, 'function')
 })
+
+// 
+// test('should curry setter', assert => {
+//   assert.plan(1)
+//   var data = store()
+//   var label = data.set('label')
+//   label('hello')
+//   assert.equal(data.get('label'), 'hello')
+// })
 
 
 test('should compute a store entry', assert => {
@@ -45,6 +50,7 @@ test('should compute a store entry', assert => {
   })
   assert.equal(data.get('welcome'), 'hello world!')
 })
+
 
 test('should delete a store entry', assert => {
   assert.plan(1)
