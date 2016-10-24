@@ -37,6 +37,7 @@ module.exports = function(data) {
    *
    * @param {Any} key
    * @param {Any} value
+   * @return {Promise}
    * @api public
    */
 
@@ -60,7 +61,11 @@ module.exports = function(data) {
    */
 
   store.del = function(key) {
-    delete data[key]
+    return promise(function(resolve) {
+      adapter.del(function(entry) {
+        resolve(entry)
+      }, key)
+    })
   }
 
   return store
