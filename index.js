@@ -32,6 +32,15 @@ module.exports = function(data) {
   }
 
 
+  store.pull = function(key) {
+    return promise(function(resolve) {
+      adapter.pull(function(key) {
+        resolve(key)
+      }, key)
+    })
+  }
+
+
   /**
    * Sets the value for the key in the datastore.
    *

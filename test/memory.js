@@ -87,3 +87,15 @@ test('should delete store entry and return a promise', assert => {
     assert.equal(data.get('label'), undefined)
   })
 })
+
+
+test('should pull/get a store entry', assert => {
+  assert.plan(1)
+  var data = store({
+    label: 'hello'
+  })
+
+  data.pull('label').then(function(value) {
+    assert.equal(value, 'hello')
+  })
+})
