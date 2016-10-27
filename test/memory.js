@@ -42,6 +42,20 @@ test('should emit global changed event when store entry is set', assert => {
   data.set('label', 'hello')
 })
 
+
+test('should emit changed event when set with previous value', assert => {
+  assert.plan(2)
+  var data = store({
+    label: 'world'
+  })
+  data.on('changed label', (value, previous) => {
+    assert.equal(previous, 'world')
+    assert.equal(value, 'hello')
+  })
+  data.set('label', 'hello')
+})
+
+
 test('should set store entry and return a promise', assert => {
   assert.plan(1)
   var data = store()

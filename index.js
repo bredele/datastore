@@ -60,12 +60,13 @@ module.exports = function(data) {
    */
 
   store.set = function(key, value) {
+    var prev = data[key]
     var cb = function(val) {
       return promise(function(resolve) {
           proxy.set(function(key, entry) {
             resolve(entry)
-            store.emit('changed ' + key, value)
-            store.emit('changed', key, value)
+            store.emit('changed ' + key, value, prev)
+            store.emit('changed', key, value, prev)
           }, key, val)
       })
     }
