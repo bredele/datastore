@@ -1,13 +1,15 @@
 # Datastore
 
-  > [![Build Status](https://travis-ci.org/bredele/datastore.svg?branch=master)](https://travis-ci.org/bredele/datastore)
-  [![NPM](https://img.shields.io/npm/v/datastore.svg)](https://www.npmjs.com/package/datastore)
-  [![Downloads](https://img.shields.io/npm/dm/datastore.svg)](http://npm-stat.com/charts.html?package=datastore)
-  [![pledge](https://bredele.github.io/contributing-guide/community-pledge.svg)](https://github.com/bredele/contributing-guide/blob/master/community.md)
+  > [Brick](http://github.com/bredele/brickjs) reactive data layer
+
+[![Build Status](https://travis-ci.org/bredele/datastore.svg?branch=master)](https://travis-ci.org/bredele/datastore)
+[![NPM](https://img.shields.io/npm/v/datastore.svg)](https://www.npmjs.com/package/datastore)
+[![Downloads](https://img.shields.io/npm/dm/datastore.svg)](http://npm-stat.com/charts.html?package=datastore)
+[![pledge](https://bredele.github.io/contributing-guide/community-pledge.svg)](https://github.com/bredele/contributing-guide/blob/master/community.md)
 
 Datastore is a bloat free interface for data store and database access.
 
-  * **Adaptive**: There are thousands of databases out there. Datastore intends to provide an agnostic but yet simple interface on top of them. Seamlessly swap between databases and never change your code.
+  * **Adaptive**: There are thousands of databases out there. Datastore intends to provide an agnostic but yet simple interface on top of them. Seamlessly swap between database adapters and never change your code.
   * **Async**: Never worry about when your data will be available. Datastore uses promises at its core and allows you to deal with asynchronous access elegantly.
   * **Isomorphic**: Datastore works server side and synchronizing data between your browser and your server has never been as easy.
 
@@ -29,6 +31,8 @@ data.set('name', 'bredele').then(function() {
 })
 ```
 
+Datastore's goal is to help you focus on a single [API](/test) without committing to one type of data storage. Thus you can easily switch in the middle of your projects from a in-memory store to any kind of database without changing a single line of code.
+
 Check out [examples](/examples) and [docs](/doc) for more information.
 
 ## Installation
@@ -47,7 +51,7 @@ For questions and feedback please use our [twitter account](https://twitter.com/
 
 ## Contribution
 
-Datastore is an open source project and would not exist without its community. If you want to participate please make sure to read our <a href="https://github.com/bredele/contributing-guide" target="_blank">guideline</a> before making a pull request. If you have any datastore-related project, component or other let everyone know in our wiki.
+Datastore is an open source project and would not exist without its community. If you want to participate please make sure to read our <a href="https://github.com/bredele/contributing-guide" target="_blank">guideline</a> before making a pull request. If you have any datastore-related project, adapter or other let everyone know in our wiki.
 
 ## License
 
