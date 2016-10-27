@@ -18,6 +18,15 @@ Datastore is a bloat free interface for data store and database access.
 ```js
 var store = require('datastore')
 
+// initialize datastore with mongodb adapter
+var data = store({
+  hello: 'world'
+}, mongo('user'))
+
+data.set('age', 30)
+data.set('name', 'bredele').then(function() {
+  // do something when name has been set in database
+})
 ```
 
 Check out [examples](/examples) and [docs](/doc) for more information.
