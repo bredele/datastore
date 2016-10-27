@@ -122,6 +122,17 @@ test('should delete store entry and return a promise', assert => {
   })
 })
 
+test('should emit specific deleted event when store entry is deleted', assert => {
+  assert.plan(1)
+  var data = store({
+    label: 'hello'
+  })
+  data.on('deleted label', (value) => {
+    assert.equal(value, 'hello')
+  })
+  data.del('label')
+})
+
 
 test('should pull/get a store entry', assert => {
   assert.plan(1)

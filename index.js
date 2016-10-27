@@ -82,9 +82,11 @@ module.exports = function(data) {
    */
 
   store.del = function(key) {
+    var prev = data[key]
     return promise(function(resolve) {
       proxy.del(function(entry) {
         resolve(entry)
+        store.emit('deleted ' + key, prev)
       }, key)
     })
   }
