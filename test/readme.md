@@ -10,23 +10,23 @@ The [unit tests](/test) will give you a better appreciation of the following API
 
 ## store(data, adapter)
 
-  Create and initialize a store with an optional `data` object.
+  Create and initialize a store with an optional `data` object and/or optional adapter.
 
 ```js
+var store = datastore()
+
+// in memory datastore
 var store = datastore({
-  name: 'Olivier'
-});
+  name: 'olivier'
+})
+
+// datastore with redis database fallback/adapter
+var store = datastore({
+  name: 'olivier'
+}, redis())
 ```
 
-By default, data will be stored in memory. Adapters can be used though to synchronize the data
-with other sources of storage.
-
-```js
-var store = datastore({
-  name: 'Olivier'
-}, adapter)
-```
-
+By default, data will be stored in memory. Adapters are to synchronize the data with other sources of storage.
 See the [adapter](/docs/adapter.md) documentation for more information.
 
 ## .set(key, value)
@@ -58,7 +58,7 @@ A datastore is also an event emitter and will emit the following events once a p
  Get an attribute `key`.
 
 ```js
-store.get('nickname');
+store.get('name');
 ```
 
 The method `get` is synchronous and returns the value of a key in memory. For its asynchronous equivalent, please refer to [pull](#pull)
@@ -68,6 +68,7 @@ The method `get` is synchronous and returns the value of a key in memory. For it
  Get an attribute `key`.
 
 ```js
+store.pull('name')
 store.pull('nickname').then(function(value) {
   // do something with value
 })
@@ -78,6 +79,7 @@ store.pull('nickname').then(function(value) {
  Delete a store key.
 
 ```js
+store.del('name')
 store.del('nickname').then(function() {
   // nickname has successfully been deleted
 })
