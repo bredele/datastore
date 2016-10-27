@@ -133,6 +133,18 @@ test('should emit specific deleted event when store entry is deleted', assert =>
   data.del('label')
 })
 
+test('should emit global deleted event when store entry is deleted', assert => {
+  assert.plan(2)
+  var data = store({
+    label: 'hello'
+  })
+  data.on('deleted', (key, value) => {
+    assert.equal(key, 'label')
+    assert.equal(value, 'hello')
+  })
+  data.del('label')
+})
+
 
 test('should pull/get a store entry', assert => {
   assert.plan(1)

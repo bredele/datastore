@@ -87,6 +87,7 @@ module.exports = function(data) {
       proxy.del(function(entry) {
         resolve(entry)
         store.emit('deleted ' + key, prev)
+        store.emit('deleted', key, prev)
       }, key)
     })
   }
