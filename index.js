@@ -11,7 +11,7 @@ var Emitter = require('emitter-component')
  *
  */
 
-module.exports = function(data) {
+module.exports = function(data, adapter) {
 
   data = data || {}
 
