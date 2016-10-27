@@ -4,6 +4,7 @@
 
 var promise = require('bluff')
 var memory = require('./lib/memory')
+var Emitter = require('emitter-component')
 
 
 /**
@@ -14,9 +15,9 @@ module.exports = function(data) {
 
   data = data || {}
 
-  var store = {}
+  var store = new Emitter()
 
-  var adapter = memory(data)
+  var proxy = memory.call(store, data)
 
 
   /**
@@ -32,9 +33,17 @@ module.exports = function(data) {
   }
 
 
+  /**
+   * Get value associated to a key (asynchronous version)
+   *
+   * @param {Any} key
+   * @return value associated to the key, or undefined if there is none
+   * @api public
+   */
+
   store.pull = function(key) {
     return promise(function(resolve) {
-      adapter.pull(function(key) {
+      proxy.pull(function(key) {
         resolve(key)
       }, key)
     })
@@ -53,8 +62,10 @@ module.exports = function(data) {
   store.set = function(key, value) {
     var cb = function(val) {
       return promise(function(resolve) {
-          adapter.set(function(key, entry) {
+          proxy.set(function(key, entry) {
             resolve(entry)
+            store.emit('changed ' + key, value)
+            store.emit('changed', key, value)
           }, key, val)
       })
     }
@@ -71,7 +82,7 @@ module.exports = function(data) {
 
   store.del = function(key) {
     return promise(function(resolve) {
-      adapter.del(function(entry) {
+      proxy.del(function(entry) {
         resolve(entry)
       }, key)
     })

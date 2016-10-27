@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "bluff": "^0.9.2"
+    "bluff": "^0.9.2",
+    "emitter-component": "^1.1.1"
   },
   "devDependencies": {
     "browserify": "^13.1.1",
