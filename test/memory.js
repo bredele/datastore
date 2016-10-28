@@ -165,3 +165,15 @@ test('should contain a store entry', assert => {
   })
   assert.equal(data.contains('label'), true)
 })
+
+
+test('should have a store entry', assert => {
+  assert.plan(1)
+  var data = store({
+    label: 'hello'
+  })
+
+  data.has('label').then(function(bool) {
+    assert.equal(bool, true)
+  })
+})

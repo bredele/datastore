@@ -108,5 +108,11 @@ module.exports = function(data, adapter) {
     return data.hasOwnProperty(key)
   }
 
+  store.has = function(key) {
+    return promise(function(resolve) {
+      proxy('has', resolve, key)
+    })
+  }
+
   return store
 }
