@@ -3,7 +3,7 @@
  */
 
 var promise = require('bluff')
-var memory = require('./lib/memory')
+var adapter = require('./lib/adapter')
 var Emitter = require('emitter-component')
 
 
@@ -11,27 +11,17 @@ var Emitter = require('emitter-component')
  * Expose `datastore`
  *
  * @param {Object?} data
- * @param {Function?} adapter
+ * @param {Function?} plugin
  * @api public
  */
 
-module.exports = function(data, adapter) {
+module.exports = function(data, plugin) {
 
   data = data || {}
 
   var store = new Emitter()
 
-  var fallback = memory.call(store, data)
-
-  adapter = adapter ? adapter.call(store, data) : {}
-
-  var proxy = function(method, cb, key, value) {
-    (adapter[method] || function(target, key, value) {
-      target(key, value)
-    })(function(key, value) {
-      fallback[method](cb, key, value)
-    }, key, value)
-  }
+  var proxy = adapter(store, data, plugin)
 
 
   /**
