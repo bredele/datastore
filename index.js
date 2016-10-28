@@ -8,7 +8,11 @@ var Emitter = require('emitter-component')
 
 
 /**
+ * Expose `datastore`
  *
+ * @param {Object?} data
+ * @param {Function?} adapter
+ * @api public
  */
 
 module.exports = function(data, adapter) {
@@ -17,7 +21,10 @@ module.exports = function(data, adapter) {
 
   var store = new Emitter()
 
-  var proxy = memory.call(store, data)
+  var proxy = function(method, cb, key, value) {
+    var obj = memory.call(store, data)
+    obj[method](cb, key, value)
+  }
 
 
   /**
@@ -43,9 +50,7 @@ module.exports = function(data, adapter) {
 
   store.pull = function(key) {
     return promise(function(resolve) {
-      proxy.pull(function(key) {
-        resolve(key)
-      }, key)
+      proxy('pull', resolve, key)
     })
   }
 
@@ -63,11 +68,11 @@ module.exports = function(data, adapter) {
     var prev = data[key]
     var cb = function(val) {
       return promise(function(resolve) {
-          proxy.set(function(key, entry) {
-            resolve(entry)
-            store.emit('changed ' + key, value, prev)
-            store.emit('changed', key, value, prev)
-          }, key, val)
+        proxy('set', function(key, entry) {
+          resolve(entry)
+          store.emit('changed ' + key, value, prev)
+          store.emit('changed', key, value, prev)
+        }, key, val)
       })
     }
     return value == null ? cb : cb(value)
@@ -84,7 +89,7 @@ module.exports = function(data, adapter) {
   store.del = function(key) {
     var prev = data[key]
     return promise(function(resolve) {
-      proxy.del(function(entry) {
+      proxy('del', function(entry) {
         resolve(entry)
         store.emit('deleted ' + key, prev)
         store.emit('deleted', key, prev)
