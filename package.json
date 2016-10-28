@@ -15,7 +15,10 @@
   },
   "scripts": {
     "test": "browserify test/*.js | tape-run",
-    "test:sauce": "zuul -- test/*.js"
+    "test:sauce": "zuul -- test/*.js",
+    "build": "npm run build:dev",
+    "build:dev": "browserify index.js --debug --standalone datastore > dist/datastore.js",
+    "build:prod": ""
   },
   "repository": {
     "type": "git",
