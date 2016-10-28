@@ -21,9 +21,16 @@ module.exports = function(data, adapter) {
 
   var store = new Emitter()
 
+  var fallback = memory.call(store, data)
+
+  adapter = adapter ? adapter.call(store, data) : {}
+
   var proxy = function(method, cb, key, value) {
-    var obj = memory.call(store, data)
-    obj[method](cb, key, value)
+    (adapter[method] || function(target, key, value) {
+      target(key, value)
+    })(function(key, value) {
+      fallback[method](cb, key, value)
+    }, key, value)
   }
 
 
