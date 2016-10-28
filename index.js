@@ -104,5 +104,9 @@ module.exports = function(data, adapter) {
     })
   }
 
+  store.contains = function(key) {
+    return data.hasOwnProperty(key)
+  }
+
   return store
 }

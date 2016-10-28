@@ -9,7 +9,7 @@
 
 Datastore is a bloat free interface for data store and database access.
 
-  * **Adaptive**: There are thousands of databases out there. Datastore intends to provide an agnostic but yet simple interface on top of them. Seamlessly swap between database adapters and never change your code.
+  * **Adaptive**: There are hundreds of databases out there. Datastore intends to provide an agnostic but yet simple interface on top of them. Seamlessly swap between database adapters and never change your code.
   * **Async**: Never worry about when your data will be available. Datastore uses promises at its core and allows you to deal with asynchronous access elegantly.
   * **Isomorphic**: Datastore works server side and synchronizing data between your browser and your server has never been as easy.
 
@@ -33,7 +33,7 @@ data.set('name', 'bredele').then(function() {
 
 Datastore's goal is to help you focus on a single [API](/test) without committing to one type of data storage. Thus you can easily switch in the middle of your projects from a in-memory store to any kind of database without changing a single line of code.
 
-Check out [examples](/examples) and [docs](/doc) for more information.
+Check out [examples](/examples) and [docs](/docs) for more information.
 
 ## Installation
 

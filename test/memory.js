@@ -156,3 +156,12 @@ test('should pull/get a store entry', assert => {
     assert.equal(value, 'hello')
   })
 })
+
+
+test('should contain a store entry', assert => {
+  assert.plan(1)
+  var data = store({
+    label: 'hello'
+  })
+  assert.equal(data.contains('label'), true)
+})
