@@ -3,7 +3,7 @@
  */
 
 var promise = require('bluff')
-var adapter = require('./lib/adapter')
+var delegate = require('./lib/adapter')
 var Emitter = require('emitter-component')
 
 
@@ -11,17 +11,27 @@ var Emitter = require('emitter-component')
  * Expose `datastore`
  *
  * @param {Object?} data
- * @param {Function?} plugin
+ * @param {Function?} adapter
  * @api public
  */
 
-module.exports = function(data, plugin) {
+module.exports = function(data, adapter) {
 
   data = data || {}
 
+  /**
+   * A datastore is an event emitter.
+   */
+
   var store = new Emitter()
 
-  var proxy = adapter(store, data, plugin)
+
+  /**
+   * Delegate operations to the datastore adapter.
+   * (Fallback in memory)
+   */
+
+  var proxy = delegate(store, data, adapter)
 
 
   /**
