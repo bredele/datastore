@@ -35,7 +35,8 @@ module.exports = function(data, adapter) {
 
 
   /**
-   * Get value associated to a key (synchronous version)
+   * Returns the value associated to the key, or undefined if there is none.
+   * (synchronous version)
    *
    * @param {Any} key
    * @return value associated to the key, or undefined if there is none
@@ -48,10 +49,12 @@ module.exports = function(data, adapter) {
 
 
   /**
-   * Get value associated to a key (asynchronous version)
+   * Returns the value associated to the key, or undefined if there is none. 
+   * (asynchronous version)
    *
    * @param {Any} key
    * @return value associated to the key, or undefined if there is none
+   * @return {Promise}
    * @api public
    */
 
@@ -89,7 +92,8 @@ module.exports = function(data, adapter) {
   /**
    * Removes any value associated to the key.
    *
-   * @param {Any} key
+   * @param {Any} key\
+   * @return {Promise}
    * @api public
    */
 
@@ -104,9 +108,29 @@ module.exports = function(data, adapter) {
     })
   }
 
+  /**
+   * Returns a boolean asserting whether a value has been associated
+   * to the key in the datastore or not.
+   *
+   * @param {String} key
+   * @return {Boolean}
+   * @return {Promise}
+   * @api public
+   */
+
   store.contains = function(key) {
     return data.hasOwnProperty(key)
   }
+
+
+  /**
+   * Returns a promise asserting whether a value has been associated
+   * to the key in the datastore or not.
+   *
+   * @param {String} key
+   * @return {Boolean}
+   * @api public
+   */
 
   store.has = function(key) {
     return promise(function(resolve) {
