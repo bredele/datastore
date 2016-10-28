@@ -13,7 +13,7 @@ Datastore is a bloat free interface for data store and database access.
   * **Async**: Never worry about when your data will be available. Datastore uses promises at its core and allows you to deal with asynchronous access elegantly.
   * **Isomorphic**: Datastore works server side and synchronizing data between your browser and your server has never been as easy.
 
-[Try it online!]()
+[Try it online!](http://requirebin.com/?gist=457b620d0e3fd55db5352c5446aa01df)
 
 ## Usage
 
