@@ -87,3 +87,27 @@ store.del('nickname').then(function() {
 
   Emits `deleted` event with `key`.<br>
   Emits `deleted key` event.
+
+
+## .contains(key)
+
+ Returns a boolean asserting whether a value has been associated
+ to the key in the datastore or not.
+
+```js
+store.contains('name')
+```
+
+The method `contains` is synchronous. For its asynchronous equivalent, please refer to [has](#has)
+
+
+## .has(key)
+
+ Returns a boolean asserting whether a value has been associated
+ to the key in the datastore or not.
+
+```js
+store.has('name').then(function() {
+  // the value associated to name exists
+})
+```
