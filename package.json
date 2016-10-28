@@ -8,8 +8,8 @@
     "emitter-component": "^1.1.1"
   },
   "devDependencies": {
-    "browserify": "^13.1.1",
-    "tape": "^4.6.2",
+    "browserify": "^13.0.0",
+    "tape": "^4.6.0",
     "uglifyify": "^3.0.4",
     "zuul": "~1.5.4"
   },
