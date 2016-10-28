@@ -8,7 +8,7 @@ npm test
 
 The [unit tests](/test) will give you a better appreciation of the following API.
 
-## store(data, adapter)
+## datastore(data, adapter)
 
   Create and initialize a store with an optional `data` object and/or optional adapter.
 
@@ -26,7 +26,7 @@ var store = datastore({
 }, redis())
 ```
 
-By default, data will be stored in memory. Adapters are to synchronize the data with other sources of storage.
+By default, data will be stored in memory. Adapters are used to synchronize data with other sources of storage.
 See the [adapter](/docs/adapter.md) documentation for more information.
 
 ## .set(key, value)
@@ -37,7 +37,7 @@ See the [adapter](/docs/adapter.md) documentation for more information.
 store.set('nickname', 'bredele')
 ```
 
-Because setting a value in a database can be asynchronous, the method `set` returns a promise that represents the result of this operation.
+Because setting a value in a database can be asynchronous , the method `set` **always** returns a promise that represents the result of this operation.
 
 ```js
 store
@@ -65,7 +65,7 @@ The method `get` is synchronous and returns the value of a key in memory. For it
 
 ## .pull(key)
 
- Get an attribute `key`.
+ Get an attribute `key` and returns a promise.
 
 ```js
 store.pull('name')
@@ -76,7 +76,7 @@ store.pull('nickname').then(function(value) {
 
 ## .del(key)
 
- Delete a store key.
+ Delete a store key and returns a promise.
 
 ```js
 store.del('name')
