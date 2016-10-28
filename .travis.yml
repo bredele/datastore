@@ -1,6 +1,9 @@
 language: node_js
 node_js:
 - '0.10'
+script:
+  - npm run test
+  - npm run test:sauce
 env:
   global:
   - secure: Cv7UJzMXrd9cf0SY+Uah3/hsefbJzxqqTze45bvLoE/O/LUiq0CeqhTGf8uS7mS4yQ1WTLo5miz7HY6ubr3DIZ6mxogUzIE8Yz2KySFRGMJ0cNQM9Gm9gc5o+Ncv8NBFhjUFsmAvk0ooso+HZ638xIuvWvOexyXqYKreceDBBxM=
