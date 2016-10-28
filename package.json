@@ -11,14 +11,15 @@
     "browserify": "^13.1.1",
     "tape": "^4.6.2",
     "tape-run": "^2.1.4",
+    "uglifyify": "^3.0.4",
     "zuul": "~1.5.4"
   },
   "scripts": {
     "test": "browserify test/*.js | tape-run",
     "test:sauce": "zuul -- test/*.js",
-    "build": "npm run build:dev",
+    "build": "npm run build:dev && npm run build:prod",
     "build:dev": "browserify index.js --debug --standalone datastore > dist/datastore.js",
-    "build:prod": ""
+    "build:prod": "browserify -g uglifyify index.js --standalone datastore > dist/datastore.min.js"
   },
   "repository": {
     "type": "git",
