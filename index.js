@@ -4,18 +4,36 @@
 
 var promise = require('bluff')
 var delegate = require('./lib/adapter')
-var Emitter = require('emitter-component')
+var emitter = require('emitter-component')
 
 
 /**
  * Expose `datastore`
+ */
+
+module.exports = datastore
+
+
+/**
+ * Create a datastore.
  *
  * @param {Object?} data
  * @param {Function?} adapter
  * @api public
  */
 
-module.exports = function(data, adapter) {
+function datastore(data, adapter) {
+  return datastore.factory({}, data, adapter)
+}
+
+
+/**
+ * Mixin an object with a datastore.
+ *
+ * @api private
+ */
+
+datastore.factory = function(obj, data, adapter) {
 
   data = data || {}
 
@@ -23,7 +41,7 @@ module.exports = function(data, adapter) {
    * A datastore is an event emitter.
    */
 
-  var store = new Emitter()
+  var store = emitter(obj)
 
 
   /**
@@ -49,7 +67,7 @@ module.exports = function(data, adapter) {
 
 
   /**
-   * Returns the value associated to the key, or undefined if there is none. 
+   * Returns the value associated to the key, or undefined if there is none.
    * (asynchronous version)
    *
    * @param {Any} key
