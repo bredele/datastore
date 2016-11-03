@@ -87,20 +87,20 @@ test('should compute a store entry', assert => {
 })
 
 
-// test('should set object as store entry', assert => {
-//   assert.plan(2)
-//   var data = store()
-//   data.on('changed name', function() {
-//     assert.equal(data.get('name'), 'olivier')
-//   })
-//   data.on('changed github', function() {
-//     assert.equal(data.get('github'), 'bredele')
-//   })
-//   data.set({
-//     name: 'olivier',
-//     github: 'bredele'
-//   })
-// })
+test('should set object as store entry', assert => {
+  assert.plan(2)
+  var data = store()
+  data.on('changed name', function() {
+    assert.equal(data.get('name'), 'olivier')
+  })
+  data.on('changed github', function() {
+    assert.equal(data.get('github'), 'bredele')
+  })
+  data.set({
+    name: 'olivier',
+    github: 'bredele'
+  })
+})
 
 // test('should set a promise', assert => {
 //   assert.plan(2)
@@ -117,79 +117,79 @@ test('should compute a store entry', assert => {
 //   })
 // })
 
-
-test('should delete a store entry', assert => {
-  assert.plan(1)
-  var data = store({
-    label: 'hello'
-  })
-  data.del('label')
-  assert.equal(data.get('label'), undefined)
-})
-
-
-test('should delete store entry and return a promise', assert => {
-  assert.plan(1)
-  var data = store({
-    label: 'hello'
-  })
-  data.del('label').then(function() {
-    assert.equal(data.get('label'), undefined)
-  })
-})
-
-test('should emit specific deleted event when store entry is deleted', assert => {
-  assert.plan(1)
-  var data = store({
-    label: 'hello'
-  })
-  data.on('deleted label', (value) => {
-    assert.equal(value, 'hello')
-  })
-  data.del('label')
-})
-
-test('should emit global deleted event when store entry is deleted', assert => {
-  assert.plan(2)
-  var data = store({
-    label: 'hello'
-  })
-  data.on('deleted', (key, value) => {
-    assert.equal(key, 'label')
-    assert.equal(value, 'hello')
-  })
-  data.del('label')
-})
-
-
-test('should pull/get a store entry', assert => {
-  assert.plan(1)
-  var data = store({
-    label: 'hello'
-  })
-
-  data.pull('label').then(function(value) {
-    assert.equal(value, 'hello')
-  })
-})
-
-
-test('should contain a store entry', assert => {
-  assert.plan(1)
-  var data = store({
-    label: 'hello'
-  })
-  assert.equal(data.contains('label'), true)
-})
-
-
-test('should have a store entry', assert => {
-  assert.plan(1)
-  var data = store({
-    label: 'hello'
-  })
-
-  data.has('label').then(function(bool) {
-    assert.equal(bool, true)
-  })
-})
+//
+// test('should delete a store entry', assert => {
+//   assert.plan(1)
+//   var data = store({
+//     label: 'hello'
+//   })
+//   data.del('label')
+//   assert.equal(data.get('label'), undefined)
+// })
+//
+//
+// test('should delete store entry and return a promise', assert => {
+//   assert.plan(1)
+//   var data = store({
+//     label: 'hello'
+//   })
+//   data.del('label').then(function() {
+//     assert.equal(data.get('label'), undefined)
+//   })
+// })
+//
+// test('should emit specific deleted event when store entry is deleted', assert => {
+//   assert.plan(1)
+//   var data = store({
+//     label: 'hello'
+//   })
+//   data.on('deleted label', (value) => {
+//     assert.equal(value, 'hello')
+//   })
+//   data.del('label')
+// })
+//
+// test('should emit global deleted event when store entry is deleted', assert => {
+//   assert.plan(2)
+//   var data = store({
+//     label: 'hello'
+//   })
+//   data.on('deleted', (key, value) => {
+//     assert.equal(key, 'label')
+//     assert.equal(value, 'hello')
+//   })
+//   data.del('label')
+// })
+//
+//
+// test('should pull/get a store entry', assert => {
+//   assert.plan(1)
+//   var data = store({
+//     label: 'hello'
+//   })
+//
+//   data.pull('label').then(function(value) {
+//     assert.equal(value, 'hello')
+//   })
+// })
+//
+//
+// test('should contain a store entry', assert => {
+//   assert.plan(1)
+//   var data = store({
+//     label: 'hello'
+//   })
+//   assert.equal(data.contains('label'), true)
+// })
+//
+//
+// test('should have a store entry', assert => {
+//   assert.plan(1)
+//   var data = store({
+//     label: 'hello'
+//   })
+//
+//   data.has('label').then(function(bool) {
+//     assert.equal(bool, true)
+//   })
+// })

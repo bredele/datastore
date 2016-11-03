@@ -100,7 +100,7 @@ datastore.factory = function(obj, data, adapter) {
         }, key, val)
       })
     }
-    return value == null ? cb : cb(value)
+    return (value == null && typeof key != 'object') ? cb : cb(value)
   }
 
 
