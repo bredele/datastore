@@ -87,20 +87,20 @@ test('should compute a store entry', assert => {
 })
 
 
-test('should set object as store entry', assert => {
-  assert.plan(2)
-  var data = store()
-  data.on('changed name', function() {
-    assert.equal(data.get('name'), 'olivier')
-  })
-  data.on('changed github', function() {
-    assert.equal(data.get('github'), 'bredele')
-  })
-  data.set({
-    name: 'olivier',
-    github: 'bredele'
-  })
-})
+// test('should set object as store entry', assert => {
+//   assert.plan(2)
+//   var data = store()
+//   data.on('changed name', function() {
+//     assert.equal(data.get('name'), 'olivier')
+//   })
+//   data.on('changed github', function() {
+//     assert.equal(data.get('github'), 'bredele')
+//   })
+//   data.set({
+//     name: 'olivier',
+//     github: 'bredele'
+//   })
+// })
 
 // test('should set a promise', assert => {
 //   assert.plan(2)
