@@ -113,13 +113,8 @@ datastore.factory = function(obj, data, adapter) {
    */
 
   store.del = function(key) {
-    var prev = data[key]
     return promise(function(resolve) {
-      proxy('del', function(entry) {
-        resolve(entry)
-        store.emit('deleted ' + key, prev)
-        store.emit('deleted', key, prev)
-      }, key)
+      proxy('del', resolve, key)
     })
   }
 
